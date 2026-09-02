@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Odoo Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": ["-c", "${workspaceFolder}/odoo.dev.conf", "-d", "dev_db"],
+            "python": "${workspaceFolder}/venv/bin/python",
+            "console": "integratedTerminal",
+            "justMyCode": false
+        },
+        {
+            "name": "Odoo Tests",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/odoo/odoo-bin",
+            "args": ["-c", "${workspaceFolder}/odoo.dev.conf", "-d", "dev_db","--test-enable", "-i", "${input:moduleName}", "--stop-after-init"],
+            "python": "${workspaceFolder}/venv/bin/python",
+            "console": "integratedTerminal"
+        }
+    ],
+    "inputs": [
+        {"id": "moduleName", "type": "promptString", "description": "Module to test"}
+    ]
+    }

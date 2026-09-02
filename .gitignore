@@ -1,0 +1,6 @@
+.env
+odoo.dev.conf
+
+/odoo/
+/venv/
+/data/

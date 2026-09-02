@@ -1,0 +1,15 @@
+[options]
+# Rename this file in odoo.dev.conf
+
+# Replace the three path with your own path
+# Remove the .../enterprise path if you use the community version
+addons_path = /home/emilien/projets/Odoo-learning/odoo/addons,/home/emilien/projets/Odoo-learning/custom-addons
+# Replace with your own path
+data_dir = /home/emilien/projets/Odoo-learning/data
+db_host = localhost
+db_port = 5433
+# Same as in the .env for db_user and db_password
+db_user = your_odoo_user_here
+db_password = your_odoo_password_here
+log_level = info
+dev_mode = reload,qweb,xml

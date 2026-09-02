@@ -1,0 +1,4 @@
+ne pas commiter ces fichiers/dossiers :
+.env
+odoo.dev.conf
+/.vscode
