@@ -23,14 +23,17 @@ L'architecture de développement est basée sur [https://ecosire.com/blog/how-to
 
 ```text
 Odoo-learning/
-├── odoo/                  # Code source d'Odoo
+├── .vscode/               # Configuration VS Code
 ├── custom-addons/         # Modules Odoo personnalisés
-├── data/                  # Données générées par Odoo
-├── venv/                  # Environnement virtuel Python
-├── odoo.dev.conf          # Configuration Odoo pour le développement
-├── run.sh                 # Script de lancement d'Odoo
+├── data/                  # Données générées par Odoo                  ⚠️[NON COMMITÉ]
+├── odoo/                  # Code source d'Odoo                         ⚠️[NON COMMITÉ]
+├── venv/                  # Environnement virtuel Python               ⚠️[NON COMMITÉ]
+├── .env                   # Variables d'environnement                  ⚠️[NON COMMITÉ]
+├── .gitignore
 ├── compose.yaml           # Services Docker (PostgreSQL, pgAdmin)
-└── README.md
+├── odoo.dev.conf          # Configuration Odoo pour le développement   ⚠️[NON COMMITÉ]
+├── README.md
+└── run.sh                 # Script de lancement d'Odoo
 ```
 
 ## 🚀 Installation
