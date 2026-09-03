@@ -8,6 +8,8 @@ L'architecture de développement est basée sur [https://ecosire.com/blog/how-to
 
 * Adaptation à **Odoo 19**.
 * Ajout d'un conteneur **pgAdmin** pour faciliter l'administration et la visualisation de la base de données PostgreSQL.
+<br>
+<br>
 
 ## 🛠️ Technologies
 
@@ -15,9 +17,11 @@ L'architecture de développement est basée sur [https://ecosire.com/blog/how-to
 * **Python 3.12**
 * **PostgreSQL**
 * **Docker / Docker Compose**
-* **VS Code**
+* **VS Code** avec l'extension odoo (1.5.0 et >)
 * **WSL2 / Ubuntu**
 * **Git**
+<br>
+<br>
 
 ## 📁 Structure du projet
 
@@ -32,21 +36,58 @@ Odoo-learning/
 ├── .gitignore
 ├── compose.yaml           # Services Docker (PostgreSQL, pgAdmin)
 ├── odoo.dev.conf          # Configuration Odoo pour le développement   ⚠️[NON COMMITÉ]
+├── odools.toml            # Configuration de l'extension VS Code odoo
 ├── README.md
 └── run.sh                 # Script de lancement d'Odoo
 ```
+<br>
 
 ## 🚀 Installation
 
 à venir
+<br>
+<br>
 
 ## ▶️ Lancer Odoo
 
 à venir
+<br>
+<br>
 
 ## 🐳 Services Docker
 
-à venir
+Lancer les conteneurs :
+
+```bash
+docker compose up -d
+```
+<br>
+
+Arrêter les conteneurs :
+
+```bash
+docker compose down
+```
+<br>
+
+Se connecter au conteneur PostgreSQL (en bash) :
+
+```bash
+docker exec -it postgres bash
+```
+<br>
+
+---
+🚀 <strong>Arrêter les conteneurs et supprimer également les volumes </strong> 🚀  
+Permet de repartir d'un environnement PostgreSQL vierge :</strong> 
+
+```bash
+docker compose down -v
+```
+
+⚠️ Cette dernière commande supprime notamment les données PostgreSQL et pgAdmin.
+<br>
+<br>
 
 ## 📦 Modules personnalisés
 

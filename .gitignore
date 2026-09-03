@@ -4,3 +4,4 @@ odoo.dev.conf
 /odoo/
 /venv/
 /data/
+__pycache__/

@@ -1,0 +1,12 @@
+[[config]]
+name = "default"
+odoo_path = "./odoo"
+addons_paths = ["./custom-addons"]
+python_path = "./venv/bin/python"
+
+[[config.diagnostic_filters]]
+codes = ["OLS.*", "oxc.*"]
+paths = [
+    "**/odoo/*",
+]
+path_type = "in"
