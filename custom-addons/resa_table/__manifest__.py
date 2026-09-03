@@ -1,19 +1,17 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "my_module",
+    'name': "ResaTable",
 
-    'summary': """
-        Module de test pour apprendre Odoo""",
+    'summary': "Short (1 phrase/line) summary of the module's purpose",
 
     'description': """
-        Module de test pour apprendre Odoo
+Long description of module's purpose
     """,
 
-    'author': "Mea",
-    'website': "https://emilien-gibeaud.tech/",
+    'author': "My Company",
+    'website': "https://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
+    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Learning',
     'version': '0.1',
@@ -34,3 +32,4 @@
         'demo/demo.xml',
     ],
 }
+

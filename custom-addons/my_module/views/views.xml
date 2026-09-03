@@ -28,8 +28,9 @@
       <field name="code">
         action = {
           "type": "ir.actions.act_window",
+          "name": "my_module window",
           "view_mode": "list,form",
-          "res_model": self._name,
+          "res_model": model._name,
         }
       </field>
     </record>
