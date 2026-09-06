@@ -11,7 +11,7 @@ L'architecture de développement est basée sur [https://ecosire.com/blog/how-to
 
 <br>
 
-Pour démarrer un projet tout frais voir la section **[🚀 Démarrer un projet tout frais 🚀](#fresh-clone)**.
+Pour démarrer un projet tout frais voir la section suivante :**<br>[🚀 Démarrer un projet tout frais 🚀](#fresh-clone)**.
 <br>
 <br>
 
@@ -64,7 +64,11 @@ docker compose up -d
 ## ▶️ Lancer Odoo <a id="run-odoo"></a>
 
 Depuis le répertoire du projet, activer l'environnement virtuel :
-><span style="color:#00FF00">**user@Machine**</span> : <span style="color:#0000FF">**~/votre/répertoire/courant**</span> \$ source venv/bin/activate<br>(venv) <span style="color:#00FF00">**user@Machine**</span> : <span style="color:#0000FF">**~/votre/répertoire/courant**</span> \$<br>
+```
+source venv/bin/activate
+```
+💡_(venv) doit apparaître, exemple :_ 
+>user@Machine:~/votre/répertoire/projet$ source venv/bin/activate<br>(venv) user@Machine:~/votre/répertoire/projet$<br>
 <br>
 
 <br>
@@ -81,6 +85,12 @@ Odoo est alors accessible à l'adresse :
 ```
 http://odoo.localhost:8069
 ```
+ou
+```
+http://localhost:8069
+```
+>⚠️ Possible que odoo.localhost:8069 pose soucis, à éclaircir ⚠️
+
 <br>
 
 **Identifiants de développement :**
@@ -94,9 +104,12 @@ Password : admin
 
 <br>
 
-_L'environnement virtuel peut être désactivé avec `deactivate` :_
-
->(venv) <span style="color:#00FF00">**user@Machine**</span> : <span style="color:#0000FF">**~/votre/répertoire/courant**</span> \$ deactivate<br><span style="color:#00FF00">**user@Machine**</span> : <span style="color:#0000FF">**~/votre/répertoire/courant**</span> \$ <br>
+💡_L'environnement virtuel peut être désactivé avec :_
+```
+deactivate.
+```
+_Exemple :_
+>(venv) user@Machine:~/votre/répertoire/projet$ deactivate<br>user@Machine:~/votre/répertoire/projet$<br>
 <br>
 
 <br>
@@ -165,12 +178,14 @@ sudo apt update && sudo apt install -y python3.12 python3.12-venv python3-pip \
 ```
 sudo npm install -g rtlcss
 ```
+<br>
 
 #### 🔧 Cloner la branche `fresh-clone` :
 
 ```
 git clone --depth 1 --branch fresh-clone https://github.com/Emilien-GIBEAUD/Odoo-learning.git
 ```
+<br>
 
 #### 🔧 Cloner les sources Odoo :
 
@@ -185,6 +200,7 @@ mkdir votre_projet && cd votre_projet
 ```
 git clone --depth 1 --branch 19.0 https://github.com/odoo/odoo
 ```
+<br>
 
 #### 🔧 Créer l'environnement virtuel :
 
@@ -199,11 +215,12 @@ xxx
 ```
 xxx
 ```
+<br>
 
-_Adaptation [ECOSIRE](https://ecosire.com/blog/how-to-set-up-odoo-development-environment-2026)...<br>
+_Adaptation [ECOSIRE](https://ecosire.com/blog/how-to-set-up-odoo-development-environment-2026) ...<br>
 `En cours , ...`_
 
 
-Vous pouvez maintenant lancer odoo et commencer vos développements, voir la section **[▶️ Lancer Odoo](#run-odoo)**.
+Vous pouvez maintenant lancer odoo et commencer vos développements, voir la section suivante :**<br>[▶️ Lancer Odoo](#run-odoo)**.
 <br>
 <br>

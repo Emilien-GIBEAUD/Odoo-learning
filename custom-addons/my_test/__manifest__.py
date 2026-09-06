@@ -1,19 +1,14 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "my_module",
+    'name': "my_test",
 
-    'summary': """
-        Module de test pour apprendre Odoo""",
+    'summary': "Module de test Odoo",
 
-    'description': """
-        Module de test pour apprendre Odoo
-    """,
+    'description': """Création d'un CRUD pour apprendre Odoo.""",
 
     'author': "Mea",
-    'website': "https://www.odoo.com/documentation/19.0/fr/administration/odoo_sh/create_module.html",
 
     # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/master/odoo/addons/base/module/module_data.xml
+    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Learning',
     'version': '0.1',
@@ -27,10 +22,10 @@
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
-        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
 }
+
