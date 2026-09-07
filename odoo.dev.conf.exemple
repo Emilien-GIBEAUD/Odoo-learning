@@ -1,7 +1,8 @@
 [options]
-# Rename this file in odoo.dev.conf
+# 1. Copy, then rename this file in odoo.dev.conf
+# 2. Enter your data and secrets
 
-# Replace the three path with your own path
+# Replace the three path with your own paths
 # Remove the .../enterprise path if you use the community version
 addons_path = /home/emilien/projets/Odoo-learning/odoo/addons,/home/emilien/projets/Odoo-learning/custom-addons
 # Replace with your own path
