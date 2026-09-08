@@ -210,6 +210,8 @@ Pour créer un module :
 
 _`A venir, la branche 'fresh-clone' n'est pas encore opérationnelle...`_
 
+_`test fresh-clone en cours...`_
+
 Pour démarrer un nouveau projet à partir d'un état propre du projet, la branche `fresh-clone` peut être utilisée, suivre la pocédure suivante :
 
 #### 🔧 Installer les dépendances WSL2 :
