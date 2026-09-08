@@ -7,11 +7,10 @@ class Book(models.Model):
     _name = 'my_test.book'
     _description = 'Livre'
 
-    title = fields.Char(required=True)
-    # author = fields.Many2one('my_test.author', required=True)
-    author_id = fields.Many2one('my_test.author')
-    year = fields.Integer(required=True)
-    description = fields.Text(required=True)
+    name = fields.Char(string='Titre', required=True)
+    author_id = fields.Many2one('my_test.author', string='Auteur', required=True)
+    year = fields.Integer(string='Année', required=True)
+    description = fields.Text(string='Description', required=True)
 
     @api.constrains('year')
     def _check_year(self):

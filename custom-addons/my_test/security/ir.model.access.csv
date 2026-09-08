@@ -1,2 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_test_book,my_test.book,model_my_test_book,base.group_user,1,1,1,1
+access_my_test_book_user,my_test.book user,model_my_test_book,,1,1,1,1
+access_my_test_author_user,my_test.author user,model_my_test_author,base.group_user,1,0,0,0
+access_my_test_author_admin,my_test.author admin,model_my_test_author,base.group_system,1,1,1,1
+access_my_test_nationality_user,my_test.nationality user,model_my_test_nationality,base.group_user,1,0,0,0
+access_my_test_nationality_admin,my_test.nationality admin,model_my_test_nationality,base.group_system,1,1,1,1
