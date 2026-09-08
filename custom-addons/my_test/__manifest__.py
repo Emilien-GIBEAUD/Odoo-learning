@@ -3,7 +3,7 @@
 
     'summary': "Module de test Odoo",
 
-    'description': """Création d'un CRUD pour apprendre Odoo.""",
+    'description': """Création de tables et de CRUD pour apprendre l'utilisation de l'ORM Odoo.""",
 
     'author': "Mea",
 
