@@ -74,7 +74,7 @@ Depuis le répertoire du projet, activer l'environnement virtuel :
 source venv/bin/activate
 ```
 💡_(venv) doit apparaître, exemple :_ 
->user@Machine:~/votre/répertoire/projet$ source venv/bin/activate<br>(venv) user@Machine:~/votre/répertoire/projet$<br>
+>user@Machine:\~/votre/répertoire/projet$ source venv/bin/activate<br>(venv) user@Machine:\~/votre/répertoire/projet$<br>
 <br>
 
 <br>
@@ -116,7 +116,7 @@ Pour arrêter Odoo `CTRL + C` dans le terminal.
 deactivate.
 ```
 _Exemple :_
->(venv) user@Machine:~/votre/répertoire/projet$ deactivate<br>user@Machine:~/votre/répertoire/projet$<br>
+>(venv) user@Machine:\~/votre/répertoire/projet$ deactivate<br>user@Machine:\~/votre/répertoire/projet$<br>
 <br>
 
 <br>
@@ -135,7 +135,7 @@ Odoo restera fonctionnel mais vous n'aurez plus la main sur les logs d'Odoo dans
 
 Pour remédier à cela, indentifier le processus Odoo avec `sudo lsof -i :8069`, le tuer avec `kill` puis relancer Odoo avec `./run.sh` :
 _Exemple :_
->(venv) user@Machine:~/votre/répertoire/projet$ lsof -i :8069<br>
+>(venv) user@Machine:\~/votre/répertoire/projet$ lsof -i :8069<br>
 COMMAND  PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME<br>
 python  8139    user   15u  IPv4 287191      0t0  TCP *:8069 (LISTEN)<br>
 python  8139    user   24u  IPv4 293327      0t0  TCP localhost:8069->localhost:56040 (ESTABLISHED)<br>
