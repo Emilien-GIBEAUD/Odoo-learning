@@ -6,5 +6,12 @@ class Author(models.Model):
 
     name = fields.Char(string='Nom', required=True)
     birth_date = fields.Date(string='Date de naissance', required=True)
-    nationality_ids = fields.Many2many('my_test.nationality', string='Nationalité', required=True)
     biography = fields.Text(string='Biographie', required=True)
+    nationality_ids = fields.Many2many(
+                                        'my_test.nationality',
+                                        string='Nationalité',
+                                        required=True)
+    book_ids = fields.One2many(
+                                'my_test.book',
+                                'author_id',
+                                string='Livres')

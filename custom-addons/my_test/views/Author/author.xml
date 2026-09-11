@@ -5,24 +5,39 @@
     <t t-set="page_title"><t t-out="author.name"/></t>
     <div class="d-flex flex-column min-vh-100">
         <main class="flex-grow-1 col-11 col-xl-10 mx-auto">
-            <div class="container mt-5">
+            <div class="container mt-5 mb-4">
                 <h1 t-out="author.name"/>
-                <p>
+                <p class="mb-2">
                     Auteur :
                     <span t-out="author.name"/>
                 </p>
-                <p>
+                <p class="mb-2">
                     Date de naissance :
                     <span t-out="author.birth_date"/>
                 </p>
-                <p>
+                <p class="mb-2">
                     Nationalité :
                     <t t-foreach="author.nationality_ids" t-as="i">
                         <span><t t-out="i.name"/></span>
                         <span><t t-if="not i_last">, </t></span>
                     </t>
                 </p>
-                <a href="{{author.biography}}" target="_blank">Voir la page Wikipedia</a>
+                <p class="mb-2">
+                    Biographie :
+                    <a t-att-href="author.biography" target="_blank">Voir la page Wikipedia</a>
+                </p>
+                <p class="mt-3 mb-0">
+                    Ses livres :
+                </p>
+                <ul>
+                    <t t-foreach="author.book_ids" t-as="book">
+                        <li>
+                            <a t-att-href="url_for('/bibliothèque/livres/%s' % book.id)">
+                                <t t-out="book.name"/>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
             </div>
             <a t-att-href="url_for('/bibliothèque/auteurs')">retour à la liste des auteurs</a>
         </main>

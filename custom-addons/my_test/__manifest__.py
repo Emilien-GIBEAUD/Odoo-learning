@@ -23,10 +23,10 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/base.xml',
-        'views/books.xml',
-        'views/book.xml',
-        'views/authors.xml',
-        'views/author.xml',
+        'views/Book/books.xml',
+        'views/Book/book.xml',
+        'views/Author/authors.xml',
+        'views/Author/author.xml',
     ],
 }
 

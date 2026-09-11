@@ -5,17 +5,19 @@
     <t t-set="page_title"><t t-out="book.name"/></t>
     <div class="d-flex flex-column min-vh-100">
         <main class="flex-grow-1 col-11 col-xl-10 mx-auto">
-            <div class="container mt-5">
+            <div class="container mt-5 mb-4">
                 <h1 t-out="book.name"/>
-                <p>
+                <p class="mb-2">
                     Auteur :
-                    <span t-out="book.author_id.name"/>
+                    <a t-att-href="url_for('/bibliothèque/auteurs/%s' % book.author_id.id)">
+                        <t t-out="book.author_id.name"/>
+                    </a>
                 </p>
-                <p>
+                <p class="mb-2">
                     Année :
                     <span t-out="book.year"/>
                 </p>
-                <p t-out="book.description"/>
+                <p class="mb-2" t-out="book.description"/>
             </div>
             <a t-att-href="url_for('/bibliothèque/livres')">retour à la liste des livres</a>
         </main>
