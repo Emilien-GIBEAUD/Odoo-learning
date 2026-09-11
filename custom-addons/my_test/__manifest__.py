@@ -16,12 +16,17 @@
     'application': True,
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'website'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
+        'views/base.xml',
+        'views/books.xml',
+        'views/book.xml',
+        'views/authors.xml',
+        'views/author.xml',
     ],
 }
 

@@ -1,0 +1,33 @@
+<odoo>
+
+<template id="author_page" name="Livre">
+    <t t-call="my_test.base_template">
+    <t t-set="page_title"><t t-out="author.name"/></t>
+    <div class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1 col-11 col-xl-10 mx-auto">
+            <div class="container mt-5">
+                <h1 t-out="author.name"/>
+                <p>
+                    Auteur :
+                    <span t-out="author.name"/>
+                </p>
+                <p>
+                    Date de naissance :
+                    <span t-out="author.birth_date"/>
+                </p>
+                <p>
+                    Nationalité :
+                    <t t-foreach="author.nationality_ids" t-as="i">
+                        <span><t t-out="i.name"/></span>
+                        <span><t t-if="not i_last">, </t></span>
+                    </t>
+                </p>
+                <a href="{{author.biography}}" target="_blank">Voir la page Wikipedia</a>
+            </div>
+            <a t-att-href="url_for('/bibliothèque/auteurs')">retour à la liste des auteurs</a>
+        </main>
+    </div>
+    </t>
+</template>
+
+</odoo>

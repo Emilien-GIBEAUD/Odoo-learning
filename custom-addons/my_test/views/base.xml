@@ -1,0 +1,55 @@
+<odoo>
+
+<template id="base_template" name="Base Template">
+    <html>
+    <head>
+        <title><t t-out="page_title"/></title>
+
+        <t t-call-assets="web.assets_frontend"/>
+    </head>
+    <body class="align-items-center py-1 bg-body-tertiary">
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 border-bottom --bs-tertiary-color">
+                <div class="col-sm-1 mb-2 mb-sm-0 text-center"> 
+                    <a href="#" class="d-inline-flex link-body-emphasis text-decoration-none">
+                        <i class="fa fa-book" width="40" height="40" role="img" aria-label="Bootstrap">
+                        </i> 
+                    </a>
+                </div>
+                <nav class="navbar navbar-expand-sm col-sm-11" aria-label="Fourth navbar example">
+                    <div class="container-fluid ms-5 ms-sm-0"> 
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation"> 
+                            <span class="navbar-toggler-icon"></span> 
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarsExample04">
+                            <ul class="navbar-nav me-auto mb-4 mb-sm-0">
+                                <li class="nav-item"> 
+                                    <a class="nav-link" t-att-href="url_for('/bibliothèque/livres')">Livres</a> 
+                                </li>
+                                <li class="nav-item"> 
+                                    <a class="nav-link" t-att-href="url_for('/bibliothèque/auteurs')">Auteurs</a> 
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+        <!-- main content -->
+        <t t-out="0"/>
+
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-1 border-top">
+            <p class="col-md-4 mb-0 text-body-secondary">© 2026 Biblio</p> 
+            <a href="/"
+                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+                aria-label="Bootstrap"> 
+                <i class="oi oi-odoo me-2" width="40" height="32" aria-hidden="true"></i> 
+            </a>
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Mentions légales</a></li>
+            </ul>
+        </footer>
+    </body>
+    </html>
+</template>
+
+</odoo>

@@ -1,0 +1,45 @@
+<odoo>
+
+<template id="authors_page" name="Auteurs">
+    <t t-call="my_test.base_template">
+    <t t-set="page_title">Les auteurs</t>
+    <div class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1 col-11 col-xl-10 mx-auto">
+            <div class="container mt-5">
+                <h1 class="mb-4">Les auteurs</h1>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date de naissance</th>
+                            <th>Nationalité</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr t-foreach="authors" t-as="author">
+                            <td t-out="author.name"/>
+                            <td t-out="author.birth_date"/>
+                            <td>
+                                <t t-foreach="author.nationality_ids" t-as="i">
+                                    <t t-out="i.name"/>
+                                    <t t-if="not i_last">, </t>
+                                </t>
+                            </td>
+                            <td>
+                                <a t-att-href="url_for('/bibliothèque/auteurs/%s' % author.id)">
+                                    Voir
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    </t>
+</template>
+
+</odoo>
