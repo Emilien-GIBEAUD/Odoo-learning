@@ -48,7 +48,9 @@ Odoo-learning/
 ├── odoo.dev.conf.exemple  # Configuration Odoo pour le développement (exemple)
 ├── odools.toml            # Configuration de Odoo Language Server
 ├── README.md
-└── run.sh                 # Script de lancement d'Odoo
+├── run.sh                 # Script de lancement d'Odoo
+└── sitecustomize.py       # Filtre les avertissements @t-esc dépréciés de certains
+                             modules (odoo.addons.base.models.ir_qweb uniquement)
 ```
 <br>
 

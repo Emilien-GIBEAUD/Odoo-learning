@@ -1,5 +1,5 @@
 {
-    'name': "my_test",
+    'name': "Biblio",
 
     'summary': "Module de test Odoo",
 
