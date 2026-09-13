@@ -1,0 +1,40 @@
+services:
+  odoo :
+    build:
+      context: .
+    container_name: odoo_ol
+    depends_on:
+      - postgres
+    environment:
+      HOST: postgres
+      USER: ${ODOO_USER}
+      PASSWORD: ${ODOO_PASSWORD}
+    networks:
+      - edge_edge
+      - ol_internal
+
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgres_ol
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - odoo-pgdata:/var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - ol_internal
+
+networks:
+  edge_edge:
+    external: true
+  ol_internal:
+    name: ol_internal     # Create the network if it doesn't exist yet
+
+volumes:
+  odoo-pgdata:

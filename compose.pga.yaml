@@ -1,0 +1,31 @@
+# 1. Copy this file to the PHPMyadmin prod folder (and rename it in compose.yaml)
+# 2. Run the container with : sudo docker compose up -d
+
+services:
+  pgadmin:
+    image: dpage/pgadmin4:9
+    container_name: pgadmin_ol
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - edge
+      - ol_internal
+
+networks:
+  # Réseau Traefik existant
+  edge:
+    external: true
+    name: edge_edge
+
+  # Réseau interne DB de Odoo-learning
+  ol_internal:
+    external: true              # Created by the Odoo-learning compose.prod.yaml file
+
+volumes:
+  pgadmin-data:

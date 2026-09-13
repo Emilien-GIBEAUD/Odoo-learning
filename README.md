@@ -37,20 +37,27 @@ Odoo-learning/
 ├───── launch.json         # Configurations de débogage et tests
 ├───── settings.json       # Configuration Python VS Code
 ├── custom-addons/         # Modules Odoo personnalisés
-├── data/                  # Données générées par Odoo                  ⚠️[NON COMMITÉ]
-├── odoo/                  # Code source d'Odoo                         ⚠️[NON COMMITÉ]
-├── venv/                  # Environnement virtuel Python               ⚠️[NON COMMITÉ]
-├── .env                   # Variables d'environnement                  ⚠️[NON COMMITÉ]
+├── data/                  # Données générées par Odoo                               ℹ️
+├── odoo/                  # Code source d'Odoo                                      ℹ️
+├── venv/                  # Environnement virtuel Python                            ℹ️
+├── .env                   # Variables d'environnement                               ⚠️⚠️
 ├── .env.exemple           # Variables d'environnement (exemple)
 ├── .gitignore
-├── compose.yaml           # Services Docker (PostgreSQL, pgAdmin)
-├── odoo.dev.conf          # Configuration Odoo pour le développement   ⚠️[NON COMMITÉ]
+├── compose.yaml           # Services Docker de développement (PostgreSQL, pgAdmin)
+├── compose.pga.yaml       # Services Docker de production (pgAdmin)
+├── compose.prod.yaml      # Services Docker de production (Odoo, PostgreSQL)
+├── DOCKERFILE             # Image Odoo de production (Odoo + custom-addons)
+├── odoo.conf              # Configuration Odoo pour la production
+├── odoo.dev.conf          # Configuration Odoo pour le développement                ⚠️⚠️
 ├── odoo.dev.conf.exemple  # Configuration Odoo pour le développement (exemple)
 ├── odools.toml            # Configuration de Odoo Language Server
 ├── README.md
 ├── run.sh                 # Script de lancement d'Odoo
 └── sitecustomize.py       # Filtre les avertissements @t-esc dépréciés de certains
                              modules (odoo.addons.base.models.ir_qweb uniquement)
+
+⚠️⚠️ NON COMMITÉ CONTIENT DES SECRETS ⚠️⚠️
+ℹ️ NON COMMITÉ ℹ️
 ```
 <br>
 
