@@ -76,6 +76,14 @@ docker compose up -d
 ```
 <br>
 
+pgAdmin est alors accessible à l'adresse :
+
+```
+http://localhost:8888
+```
+
+<br>
+
 ## ▶️ Lancer Odoo <a id="run-odoo"></a>
 
 Depuis le répertoire du projet, activer l'environnement virtuel :
@@ -88,12 +96,19 @@ source venv/bin/activate
 
 <br>
 
+_Avant le premier lancement d'Odoo, la base de données `dev_db` doit être initialisée :_
+```
+./run.sh -i base -d dev_db --stop-after-init
+```
+
+<br>
+
 Pour lancer Odoo :
+>⚠️ L'**environnement virtuel** doit être **activé** et le **conteneur PostgreSQL** doit être **lancé**. ⚠️
 
 ```
 ./run.sh
 ```
->⚠️ L'**environnement virtuel** doit être **activé** et le **conteneur PostgreSQL** doit être **lancé**. ⚠️
 
 <br>
 
@@ -223,17 +238,53 @@ _`test fresh-clone en cours...`_
 
 Pour démarrer un nouveau projet à partir d'un état propre du projet, la branche `fresh-clone` peut être utilisée, suivre la pocédure suivante :
 
-#### 🔧 Installer les dépendances WSL2 :
-
+#### 🔧 Installer les dépendances WSL2/Linux Ubuntu :
+Ubuntu 24.04 LTS :
 ```
 sudo apt update && sudo apt install -y python3.12 python3.12-venv python3-pip \
     build-essential libxslt1-dev libzip-dev libldap2-dev libsasl2-dev \
     libpq-dev libjpeg-dev wkhtmltopdf nodejs npm git
 ```
+⚠️ wkhtmltopdf n'est plus dans les sources de 26.04 LTS ⚠️
+<br>
 
+
+Ubuntu 26.04 LTS :
+```
+sudo apt update && sudo apt install -y python3 python3-venv python3-pip \
+    build-essential libxslt1-dev libzip-dev libldap2-dev libsasl2-dev \
+    libpq-dev libjpeg-dev nodejs npm git
+```
+
+Odoo nécessite wkhtmltopdf 0.12.6 avec Qt patché.<br>
+Télécharger le paquet adapté à l'architecture et à la distribution avec :
+```
+cd /tmp
+```
+
+Sur plateforme amd64 :
+```
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+```
+```
+sudo apt install ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+```
+
+Sur plateforme arm64 :
+```
+wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_arm64.deb
+```
+```
+sudo apt install ./wkhtmltox_0.12.6.1-3.jammy_arm64.deb
+```
+---
+<br>
+
+Puis, peu importe la version d'Ubuntu, pour finir l'installation des dépendances :
 ```
 sudo npm install -g rtlcss
 ```
+
 <br>
 
 #### 🔧 Cloner la branche `fresh-clone` :
@@ -263,10 +314,18 @@ git clone --depth 1 --branch 19.0 https://github.com/odoo/odoo
 ```
 cd ~/votre/dossier/projets/
 ```
-
+---
+Ubuntu 24.04 LTS :
 ```
 python3.12 -m venv venv
 ```
+
+Ubuntu 26.04 LTS :
+```
+python3 -m venv venv
+```
+---
+<br>
 
 ```
 source venv/bin/activate
@@ -293,7 +352,7 @@ Saisissez vos données et secrets dans les fichiers `.env` et `odoo.dev.conf` (e
 
 #### 🔧 Installer les extensions VS Code :
 
-Installez les extensions `Odoo` de Odoo et `Python` de Microsoft.
+Installez les extensions `Odoo` (version 1.5.0 et > requise) de Odoo et `Python` de Microsoft.
 
 <br>
 
