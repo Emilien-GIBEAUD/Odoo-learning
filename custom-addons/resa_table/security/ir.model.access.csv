@@ -1,2 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_resa_table_resa_table,resa_table.resa_table,model_resa_table_resa_table,base.group_user,1,1,1,1
+access_resa_table_pizza_admin,resa_table.pizza,model_resa_table_pizza,base.group_system,1,1,1,1
+access_resa_table_pizza_visitor,resa_table.pizza,model_resa_table_pizza,,1,0,0,0
+access_resa_table_service_template_admin,resa_table.service_template,model_resa_table_service_template,base.group_system,1,1,1,1
+access_resa_table_service_template_visitor,resa_table.service_template,model_resa_table_service_template,,1,0,0,0
+access_resa_table_service_admin,resa_table.service,model_resa_table_service,base.group_system,1,1,1,1
+access_resa_table_service_visitor,resa_table.service,model_resa_table_service,,1,0,0,0

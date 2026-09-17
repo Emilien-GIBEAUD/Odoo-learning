@@ -1,0 +1,41 @@
+<odoo>
+
+<template id="pizzas_page" name="Pizzas">
+    <t t-call="resa_table.base_template">
+    <t t-set="page_title">Nos Pizzas</t>
+    <div class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1 col-11 col-xl-10 mx-auto">
+            <div class="container mt-5">
+                <h1 class="mb-4">Nos Pizzas</h1>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Ingrédients</th>
+                            <th class="text-end">Prix (€)</th>
+                        </tr>
+                    </thead>
+                    <tbody t-if="pizzas">
+                        <tr t-foreach="pizzas" t-as="pizza">
+                            <td t-out="pizza.name"/>
+                            <td t-out="pizza.ingredients"/>
+                            <td t-out="'%.2f' % pizza.price" class="text-end"/>
+                        </tr>
+                    </tbody>
+                    <tbody t-else="">
+                        <tr>
+                            <td colspan="3">Pas de pizzas disponibles</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 class="mt-5">Notre service de réservation</h2>
+
+                <hr class="my-4"></hr>
+            </div>
+        </main>
+    </div>
+    </t>
+</template>
+
+</odoo>

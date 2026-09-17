@@ -1,48 +1,168 @@
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-    <record model="ir.ui.view" id="resa_table.list">
-      <field name="name">ResaTable list</field>
-      <field name="model">resa_table.resa_table</field>
-      <field name="arch" type="xml">
-        <list>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </list>
-      </field>
+<!-- Pizza -->
+    <record id="pizza_list_view" model="ir.ui.view">
+        <field name="name">resa_table.pizza.list</field>
+        <field name="model">resa_table.pizza</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="ingredients"/>
+                <field name="price"/>
+                <field name="isActive"/>
+            </list>
+        </field>
     </record>
 
-    <!-- actions opening views on models -->
-    <record model="ir.actions.act_window" id="resa_table.action_window">
-      <field name="name">ResaTable window</field>
-      <field name="res_model">resa_table.resa_table</field>
-      <field name="view_mode">list,form</field>
+	<record id="pizza_form_view" model="ir.ui.view">
+		<field name="name">resa_table.pizza.form</field>
+		<field name="model">resa_table.pizza</field>
+
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="ingredients"/>
+						<field name="price"/>
+						<field name="isActive"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="pizza_action" model="ir.actions.act_window">
+		<field name="name">Pizzas</field>
+		<field name="res_model">resa_table.pizza</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+
+<!-- Service Templates -->
+    <record id="service_template_list_view" model="ir.ui.view">
+        <field name="name">resa_table.service_template.list</field>
+        <field name="model">resa_table.service_template</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="startTime" widget="float_time"/>
+                <field name="endTime" widget="float_time"/>
+                <field name="slotDurationInMin"/>
+                <field name="capacityPerSlot"/>
+                <field name="isActive"/>
+            </list>
+        </field>
     </record>
 
-    <!-- server action to the one above -->
-    <record model="ir.actions.server" id="resa_table.action_server">
-      <field name="name">ResaTable server</field>
-      <field name="model_id" ref="model_resa_table_resa_table"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "list,form",
-          "res_model": model._name,
-        }
-      </field>
+	<record id="service_template_form_view" model="ir.ui.view">
+		<field name="name">resa_table.service_template.form</field>
+		<field name="model">resa_table.service_template</field>
+
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="startTime" widget="float_time"/>
+						<field name="endTime" widget="float_time"/>
+						<field name="slotDurationInMin"/>
+						<field name="capacityPerSlot"/>
+						<field name="isActive"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="service_template_action" model="ir.actions.act_window">
+		<field name="name">service_templates</field>
+		<field name="res_model">resa_table.service_template</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+
+<!-- Services -->
+    <record id="service_list_view" model="ir.ui.view">
+        <field name="name">resa_table.service.list</field>
+        <field name="model">resa_table.service</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="slotDurationInMin"/>
+                <field name="capacityPerSlot"/>
+                <field name="bookingOpen"/>
+				<button name="slots"
+						type="object"
+						string="Créneaux"/>
+				<button name="reservations"
+						type="object"
+						string="Réservations"/>
+            </list>
+        </field>
     </record>
 
-    <!-- Top menu item -->
-    <menuitem name="ResaTable" id="resa_table.menu_root"/>
-    <!-- menu categories -->
-    <menuitem name="Menu 1" id="resa_table.menu_1" parent="resa_table.menu_root"/>
-    <menuitem name="Menu 2" id="resa_table.menu_2" parent="resa_table.menu_root"/>
-    <!-- actions -->
-    <menuitem name="List" id="resa_table.menu_1_list" parent="resa_table.menu_1"
-              action="resa_table.action_window"/>
-    <menuitem name="Server to list" id="resa_table" parent="resa_table.menu_2"
-              action="resa_table.action_server"/>
-  </data>
+	<record id="service_form_view" model="ir.ui.view">
+		<field name="name">resa_table.service.form</field>
+		<field name="model">resa_table.service</field>
+
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field 	name="template_id"
+								string="Utiliser un modèle"
+								options="{'no_create': True, 'no_open': True}"/>
+						<field name="startTime" widget="float_time"/>
+						<field name="endTime" widget="float_time"/>
+						<field name="slotDurationInMin"/>
+						<field name="capacityPerSlot"/>
+						<field name="bookingOpen"/>
+						<field name="originTemplate"/>
+						<button name="slots"
+								type="object"
+								string="Créneaux"/>
+						<button name="reservations"
+								type="object"
+								string="Réservations"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="service_action" model="ir.actions.act_window">
+		<field name="name">services</field>
+		<field name="res_model">resa_table.service</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+<!-- Menu -->
+	<menuitem
+		id="resatable_menu"
+		name="ResaTable"/>
+		<menuitem
+			id="pizza_menu"
+			name="Pizzas"
+			parent="resatable_menu"
+			action="pizza_action"
+			sequence="10"/>
+
+		<menuitem
+			id="service_menu"
+			name="Services"
+			parent="resatable_menu"
+			action="service_action"
+			sequence="20"/>
+
+		<menuitem
+			id="service_template_menu"
+			name="Modèles de service"
+			parent="resatable_menu"
+			action="service_template_action"
+			sequence="30"/>
+
 </odoo>
