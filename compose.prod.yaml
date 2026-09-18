@@ -7,8 +7,8 @@ services:
       - postgres
     environment:
       HOST: postgres
-      USER: ${ODOO_USER}
-      PASSWORD: ${ODOO_PASSWORD}
+      USER: ${POSTGRES_USER}
+      PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - edge_edge
       - ol_internal
@@ -21,7 +21,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - odoo-pgdata:/var/lib/postgresql/data/pgdata
+      - odoo-pgdata:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U odoo"]
       interval: 10s
