@@ -33,6 +33,9 @@ Pour démarrer un projet tout frais voir la section suivante :**<br>[🚀 Démar
 
 ```text
 Odoo-learning/
+├── .github/
+├───── workflows/
+├──────── deploy.yaml      # GitHub action for deployment
 ├── .vscode/               # Configurations VS Code
 ├───── launch.json         # Configurations de débogage et tests
 ├───── settings.json       # Configuration Python VS Code
