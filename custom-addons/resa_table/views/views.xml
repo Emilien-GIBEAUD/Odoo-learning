@@ -9,7 +9,7 @@
                 <field name="name"/>
                 <field name="ingredients"/>
                 <field name="price"/>
-                <field name="isActive"/>
+                <field name="isActive" class="text-center" width="45px"/>
             </list>
         </field>
     </record>
@@ -49,9 +49,9 @@
                 <field name="name"/>
                 <field name="startTime" widget="float_time"/>
                 <field name="endTime" widget="float_time"/>
-                <field name="slotDurationInMin"/>
-                <field name="capacityPerSlot"/>
-                <field name="isActive"/>
+                <field name="slotDurationInMin" string="Créneau (min.)" width="95px"/>
+                <field name="capacityPerSlot" string="Capacité"/>
+                <field name="isActive" class="text-center" width="45px"/>
             </list>
         </field>
     </record>
@@ -90,10 +90,10 @@
 
         <field name="arch" type="xml">
             <list>
-                <field name="name"/>
-                <field name="slotDurationInMin"/>
-                <field name="capacityPerSlot"/>
-                <field name="bookingOpen"/>
+				<field name="display_service"/>
+                <field name="slotDurationInMin" string="Créneau (min.)" width="95px"/>
+                <field name="capacityPerSlot" string="Capacité"/>
+                <field name="bookingOpen" class="text-center" width="130px"/>
 				<button name="slots"
 						type="object"
 						string="Créneaux"/>

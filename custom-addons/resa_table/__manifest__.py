@@ -26,5 +26,13 @@
         'views/base.xml',
         'views/Pizza/pizzas.xml',
     ],
+    'assets': {
+    'resa_table.assets_pizzas': [
+        'resa_table/static/src/js/pizza.js',
+    ],
+    'resa_table.base': [
+        'resa_table/static/src/js/color-modes.js',
+    ],
+},
 }
 
