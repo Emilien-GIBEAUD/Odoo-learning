@@ -16,4 +16,5 @@ jobs:
           git pull origin main
           docker compose -f compose.prod.yaml build
           docker compose -f compose.prod.yaml up -d --remove-orphans
+          docker exec odoo_ol odoo -c /etc/odoo/odoo.conf -d odoo -u all --stop-after-init
           docker image prune -f
