@@ -16,5 +16,18 @@ jobs:
           git pull origin main
           docker compose -f compose.prod.yaml build
           docker compose -f compose.prod.yaml up -d --remove-orphans
-          docker exec odoo_ol odoo -c /etc/odoo/odoo.conf -d odoo -u all --stop-after-init
           docker image prune -f
+
+      - name: upgrade Odoo modules
+        run: |
+          docker exec odoo_ol sh -c '
+            odoo \
+              -c /etc/odoo/odoo.conf \
+              -d odoo \
+              -r "$USER" \
+              -w "$PASSWORD" \
+              --db_host=postgres \
+              --db_port=5432 \
+              -u resa_table \
+              --stop-after-init
+          '
