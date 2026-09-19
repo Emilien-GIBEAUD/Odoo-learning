@@ -28,6 +28,6 @@ jobs:
               -w "$PASSWORD" \
               --db_host=postgres \
               --db_port=5432 \
-              -u resa_table \
+              -u all \
               --stop-after-init
           '
