@@ -1,7 +1,6 @@
 services:
   odoo :
-    build:
-      context: .
+    image: odoo:19
     container_name: odoo_ol
     depends_on:
       - postgres
@@ -9,6 +8,10 @@ services:
       HOST: postgres
       USER: ${POSTGRES_USER}
       PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./odoo.conf:/etc/odoo/odoo.conf:ro
+      - ./custom-addons:/mnt/extra-addons
+      - odoo-data:/var/lib/odoo
     networks:
       - edge_edge
       - ol_internal
@@ -38,3 +41,4 @@ networks:
 
 volumes:
   odoo-pgdata:
+  odoo-data:
