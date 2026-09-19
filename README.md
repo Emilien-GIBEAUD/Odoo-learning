@@ -49,7 +49,6 @@ Odoo-learning/
 ├── compose.yaml           # Services Docker de développement (PostgreSQL, pgAdmin)
 ├── compose.pga.yaml       # Services Docker de production (pgAdmin)
 ├── compose.prod.yaml      # Services Docker de production (Odoo, PostgreSQL)
-├── DOCKERFILE             # Image Odoo de production (Odoo + custom-addons)
 ├── odoo.conf              # Configuration Odoo pour la production
 ├── odoo.dev.conf          # Configuration Odoo pour le développement                ⚠️⚠️
 ├── odoo.dev.conf.exemple  # Configuration Odoo pour le développement (exemple)
