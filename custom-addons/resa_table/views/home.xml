@@ -1,0 +1,35 @@
+<odoo>
+
+<template id="home_page" name="Accueil">
+    <t t-call="resa_table.base_template">
+    <t t-set="page_title">Accueil - ResaTable</t>
+    <div class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1 col-10 col-xl-8 mx-auto">
+            <div class="container">
+                <h1 class="my-4">Accueil</h1>
+
+                <p>Bienvenue sur le service de réservation de notre restaurant.</p>
+                <p>Accèdez à nos services depuis le menu en haut de page ou bien en utilisant les liens ci-dessous :</p>
+                <div class="row g-4 py-3 row-cols-1 row-cols-lg-2">
+                    <div class="col d-flex align-items-start mb-2 px-2">
+                        <div>
+                            <h2 class="fs-2 text-body-emphasis">Réserver une pizza</h2>
+                            <p>Vous pouvez réserver une pizza le dimanche soir (service non disponible le dimanche).</p>
+                            <a class="btn btn-primary" t-att-href="url_for('/resatable/pizzas')">Réserver une pizza</a>
+                        </div>
+                    </div>
+                    <div class="col d-flex align-items-start mb-2 px-2">
+                        <div>
+                            <h2 class="fs-2 text-body-emphasis">Voir les conditions d'utilisation</h2>
+                            <p>Pour voir nos conditions d'utilisation et comment se déroulent les réservations.</p>
+                            <a class="btn btn-primary" t-att-href="url_for('/resatable/conditions')">Nos conditions d'utilisation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    </t>
+</template>
+
+</odoo>

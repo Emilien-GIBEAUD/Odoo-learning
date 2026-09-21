@@ -88,6 +88,8 @@ http://localhost:8888
 
 ## ▶️ Lancer Odoo <a id="run-odoo"></a>
 
+### 🚀 1. En développement
+
 Depuis le répertoire du projet, activer l'environnement virtuel :
 ```
 source venv/bin/activate
@@ -173,8 +175,14 @@ python  8139    user   24u  IPv4 293327      0t0  TCP localhost:8069->localhost:
 ...<br>
 <br>
 
-<br>
 
+<div style="border-top: 2px dashed #bbb; margin: 20px 0;"></div>
+
+### 🚀 2. En production
+
+_en cours ..._
+
+<br>
 
 ## 🐳 Services Docker
 

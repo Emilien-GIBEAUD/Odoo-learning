@@ -1,0 +1,17 @@
+<odoo>
+
+<template id="conditions_page" name="Conditions d'utilisation">
+    <t t-call="resa_table.base_template">
+    <t t-set="page_title">Conditions d'utilisation - ResaTable</t>
+    <div class="d-flex flex-column min-vh-100">
+        <main class="flex-grow-1 col-10 col-xl-8 mx-auto">
+            <div class="container">
+                <h1 class="my-4">Nos conditions d'utilisation</h1>
+                <p>... à venir ...</p>
+            </div>
+        </main>
+    </div>
+    </t>
+</template>
+
+</odoo>
