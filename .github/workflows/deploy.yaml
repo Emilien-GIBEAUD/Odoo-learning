@@ -18,6 +18,13 @@ jobs:
           docker compose -f compose.prod.yaml up -d --remove-orphans
           docker image prune -f
 
+      - name: Wait for Odoo to be ready
+        run: |
+          until [ "$(docker inspect -f '{{.State.Health.Status}}' odoo_ol)" = "healthy" ]; do
+            echo "Waiting for Odoo..."
+            sleep 5
+          done
+
       - name: upgrade Odoo modules
         run: |
           docker exec odoo_ol sh -c '

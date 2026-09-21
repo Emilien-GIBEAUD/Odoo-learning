@@ -3,11 +3,18 @@ services:
     image: odoo:19
     container_name: odoo_ol
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       HOST: postgres
       USER: ${POSTGRES_USER}
       PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8069/web/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
     volumes:
       - ./odoo.conf:/etc/odoo/odoo.conf:ro
       - ./custom-addons:/mnt/extra-addons
