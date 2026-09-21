@@ -1,8 +1,10 @@
 <odoo>
 
 <template id="base_template" name="Base Template">
-    <html>
+    <html lang="fr">
     <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title><t t-out="page_title"/></title>
         <t t-call-assets="web.assets_frontend"/>
         <t t-call-assets="resa_table.base"/>
