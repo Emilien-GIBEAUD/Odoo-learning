@@ -22,6 +22,10 @@ class Service(models.Model):
     capacityPerSlot = fields.Integer(string='Capacité créneau', required=True)
     bookingOpen = fields.Boolean(string='Réservation ouverte')
     originTemplate = fields.Char(string='Modèle d\'origine (informatif)', default="sans modèle")
+    service_slot_ids = fields.One2many(
+        'resa_table.service_slot',
+        'service_id',
+        string='Créneaux de service')
 
     # To store the original template values
     _template_start_time = fields.Float()
@@ -67,7 +71,18 @@ class Service(models.Model):
             )
 
     def slots(self):
-        pass
+        self.ensure_one()
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Créneaux',
+            'res_model': 'resa_table.service_slot',
+            'view_mode': 'list,form',
+            'domain': [('service_id', '=', self.id)],
+            'context': {
+                'default_service_id': self.id,
+            },
+        }
 
     def reservations(self):
         pass

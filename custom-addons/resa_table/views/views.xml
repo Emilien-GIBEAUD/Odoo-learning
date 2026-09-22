@@ -38,51 +38,6 @@
 		<field name="view_mode">list,form</field>
 	</record>
 
-
-<!-- Service Templates -->
-    <record id="service_template_list_view" model="ir.ui.view">
-        <field name="name">resa_table.service_template.list</field>
-        <field name="model">resa_table.service_template</field>
-
-        <field name="arch" type="xml">
-            <list>
-                <field name="name"/>
-                <field name="startTime" widget="float_time"/>
-                <field name="endTime" widget="float_time"/>
-                <field name="slotDurationInMin" string="Créneau (min.)" width="95px"/>
-                <field name="capacityPerSlot" string="Capacité"/>
-                <field name="isActive" class="text-center" width="45px"/>
-            </list>
-        </field>
-    </record>
-
-	<record id="service_template_form_view" model="ir.ui.view">
-		<field name="name">resa_table.service_template.form</field>
-		<field name="model">resa_table.service_template</field>
-
-		<field name="arch" type="xml">
-			<form>
-				<sheet>
-					<group>
-						<field name="name"/>
-						<field name="startTime" widget="float_time"/>
-						<field name="endTime" widget="float_time"/>
-						<field name="slotDurationInMin"/>
-						<field name="capacityPerSlot"/>
-						<field name="isActive"/>
-					</group>
-				</sheet>
-			</form>
-		</field>
-	</record>
-
-	<record id="service_template_action" model="ir.actions.act_window">
-		<field name="name">service_templates</field>
-		<field name="res_model">resa_table.service_template</field>
-		<field name="view_mode">list,form</field>
-	</record>
-
-
 <!-- Services -->
     <record id="service_list_view" model="ir.ui.view">
         <field name="name">resa_table.service.list</field>
@@ -137,6 +92,78 @@
 	<record id="service_action" model="ir.actions.act_window">
 		<field name="name">services</field>
 		<field name="res_model">resa_table.service</field>
+		<field name="view_mode">list,form</field>
+	</record>
+
+<!-- Service Slots -->
+<record id="service_slot_list_view" model="ir.ui.view">
+    <field name="name">resa_table.service.slot.list</field>
+    <field name="model">resa_table.service_slot</field>
+    <field name="arch" type="xml">
+        <list>
+            <field name="name" widget="float_time"/>
+            <field name="capacity"/>
+            <field name="service_id"/>
+        </list>
+    </field>
+</record>
+
+<record id="service_slot_form_view" model="ir.ui.view">
+    <field name="name">resa_table.service.slot.form</field>
+    <field name="model">resa_table.service_slot</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="capacity"/>
+                    <field name="service_id"/>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+<!-- Service Templates -->
+    <record id="service_template_list_view" model="ir.ui.view">
+        <field name="name">resa_table.service_template.list</field>
+        <field name="model">resa_table.service_template</field>
+
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="startTime" widget="float_time"/>
+                <field name="endTime" widget="float_time"/>
+                <field name="slotDurationInMin" string="Créneau (min.)" width="95px"/>
+                <field name="capacityPerSlot" string="Capacité"/>
+                <field name="isActive" class="text-center" width="45px"/>
+            </list>
+        </field>
+    </record>
+
+	<record id="service_template_form_view" model="ir.ui.view">
+		<field name="name">resa_table.service_template.form</field>
+		<field name="model">resa_table.service_template</field>
+
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name"/>
+						<field name="startTime" widget="float_time"/>
+						<field name="endTime" widget="float_time"/>
+						<field name="slotDurationInMin"/>
+						<field name="capacityPerSlot"/>
+						<field name="isActive"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="service_template_action" model="ir.actions.act_window">
+		<field name="name">service_templates</field>
+		<field name="res_model">resa_table.service_template</field>
 		<field name="view_mode">list,form</field>
 	</record>
 
