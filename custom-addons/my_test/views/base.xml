@@ -3,9 +3,9 @@
 <template id="base_template" name="Base Template">
     <html>
     <head>
-        <title><t t-out="page_title"/></title>
-
+        <link rel="icon" href="/my_test/static/src/icon/icon.svg" type="image/x-icon"/>
         <t t-call-assets="web.assets_frontend"/>
+        <title><t t-out="page_title"/></title>
     </head>
     <body class="align-items-center py-1 bg-body-tertiary">
             <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 border-bottom --bs-tertiary-color">

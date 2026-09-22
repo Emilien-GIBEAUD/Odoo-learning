@@ -30,6 +30,7 @@
     'assets': {
     'resa_table.assets_pizzas': [
         'resa_table/static/src/js/pizza.js',
+        'resa_table/static/src/css/pizza.css',
     ],
     'resa_table.base': [
         'resa_table/static/src/js/color-modes.js',

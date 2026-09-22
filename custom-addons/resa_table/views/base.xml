@@ -5,9 +5,10 @@
     <head>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title><t t-out="page_title"/></title>
+        <link rel="icon" href="/resa_table/static/src/icon/icon.svg" type="image/x-icon"/>
         <t t-call-assets="web.assets_frontend"/>
         <t t-call-assets="resa_table.base"/>
+        <title><t t-out="page_title"/></title>
     </head>
     <body class="align-items-center py-1 bg-body-tertiary">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 border-bottom --bs-tertiary-color">
