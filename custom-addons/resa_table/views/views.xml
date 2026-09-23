@@ -102,8 +102,10 @@
     <field name="arch" type="xml">
         <list>
             <field name="name" widget="float_time"/>
+            <field name="duration"/>
+            <field name="reservation" width="90px"/>
             <field name="capacity"/>
-            <field name="service_id"/>
+            <field name="display_service"/>
         </list>
     </field>
 </record>
@@ -115,9 +117,11 @@
         <form>
             <sheet>
                 <group>
-                    <field name="name"/>
+                    <field name="name" widget="float_time"/>
+					<field name="duration"/>
+					<field name="reservation"/>
                     <field name="capacity"/>
-                    <field name="service_id"/>
+                    <field name="display_service"/>
                 </group>
             </sheet>
         </form>

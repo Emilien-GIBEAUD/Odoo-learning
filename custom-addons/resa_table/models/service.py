@@ -1,6 +1,5 @@
 from odoo import models, fields, api
 
-
 class Service(models.Model):
     _name = 'resa_table.service'
     _description = 'Service'
@@ -14,7 +13,7 @@ class Service(models.Model):
     template_id = fields.Many2one(
         'resa_table.service_template',
         string="Utiliser un modèle",
-        store=False,
+        store=False
     )
     startTime = fields.Float(string='Début service', required=True)
     endTime = fields.Float(string='Fin service', required=True)
@@ -27,13 +26,13 @@ class Service(models.Model):
         'service_id',
         string='Créneaux de service')
 
-    # To store the original template values
+
+# To store the original template values
     _template_start_time = fields.Float()
     _template_end_time = fields.Float()
     _template_slot_duration = fields.Integer()
     _template_capacity = fields.Integer()
 
-    # Store the original template values
     @api.onchange('template_id')
     def _onchange_template_id(self):
         if self.template_id:
@@ -48,7 +47,8 @@ class Service(models.Model):
             self._template_slot_duration = self.slotDurationInMin
             self._template_capacity = self.capacityPerSlot
 
-    # reset the template_id and originTemplate if data from template are changed
+
+# To reset the template_id and originTemplate if data from template are changed
     @api.onchange('startTime', 'endTime', 'slotDurationInMin', 'capacityPerSlot')
     def _onchange_service_data(self):
         if (
@@ -60,6 +60,8 @@ class Service(models.Model):
             self.template_id = False
             self.originTemplate = "sans modèle"
 
+
+# To compute the service name
     @api.depends('name', 'startTime', 'endTime')
     def _compute_display_service(self):
         for service in self:
@@ -70,6 +72,29 @@ class Service(models.Model):
                 f"{int(service.endTime):02d}:{round((service.endTime % 1) * 60):02d})"
             )
 
+
+# To generate service and service slots (with generate_slots)
+    @api.model
+    def create(self, vals):
+        service = super().create(vals)
+        service.generate_slots()
+        return service
+
+
+# To generate service slots
+    def generate_slots(self):
+        current_start_time = self.startTime
+        end_time = self.endTime
+        while current_start_time < end_time:
+            service_slot = self.env['resa_table.service_slot'].create({
+                'name': current_start_time,
+                'capacity': self.capacityPerSlot,
+                'service_id': self.id
+            })
+            current_start_time += self.slotDurationInMin / 60.0
+
+
+# To open the service slots view
     def slots(self):
         self.ensure_one()
 
@@ -84,5 +109,7 @@ class Service(models.Model):
             },
         }
 
+
+# To open the service reservations view
     def reservations(self):
         pass
