@@ -61,7 +61,7 @@ class Service(models.Model):
             self.originTemplate = "sans modèle"
 
 
-# To compute the service name
+# To compute the display_service
     @api.depends('name', 'startTime', 'endTime')
     def _compute_display_service(self):
         for service in self:
@@ -85,13 +85,14 @@ class Service(models.Model):
     def generate_slots(self):
         current_start_time = self.startTime
         end_time = self.endTime
-        while current_start_time < end_time:
+        duration = self.slotDurationInMin / 60.0
+        while current_start_time + duration <= end_time:
             service_slot = self.env['resa_table.service_slot'].create({
                 'name': current_start_time,
                 'capacity': self.capacityPerSlot,
                 'service_id': self.id
             })
-            current_start_time += self.slotDurationInMin / 60.0
+            current_start_time += duration
 
 
 # To open the service slots view

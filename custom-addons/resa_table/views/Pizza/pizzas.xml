@@ -53,7 +53,14 @@
                                 <label class="form-label required" for="serviceSlot">Choisissez votre horaire</label>
                                 <select     class="form-select" name="serviceSlot" id="serviceSlot" 
                                             data-selected-slot="">
-                                    <!-- injected -->
+                                    <!-- injected ?? OU PAS -->
+                                    <t t-foreach="services" t-as="service" t-att-data-service-id="service.id">
+                                        <t t-foreach="service.service_slot_ids" t-as="slot">
+                                            <option t-att-value="slot.id">
+                                                <t t-out="slot.display_slot"/>
+                                            </option>
+                                        </t>
+                                    </t>
                                 </select>
                             </div>
 

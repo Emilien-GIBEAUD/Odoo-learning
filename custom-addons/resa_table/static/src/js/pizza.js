@@ -14,27 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let cartTotalQuantity = document.getElementById('cartTotalQuantity');
     let maxQuantity = 10; // To be replaced with the booking slot max quantity
 
-    // const serviceSelect = document.getElementById("serviceDate");
-    // const slotSelect = document.getElementById("serviceSlot");
+    const serviceSelect = document.getElementById("serviceDate");
+    const slotSelect = document.getElementById("serviceSlot");
     // const slotSelected = slotSelect.dataset.selectedSlot;
     // const formerItems = document.getElementById("formerItems");
 
-    // // Manage the service and slot selects
-    // serviceSelect.addEventListener("change", async function () {
-    //     const response = await fetch(`/slot/serviceSlots/${this.value}/json`);
-    //     const slots = await response.json();
+    // Manage the service and slot selects
+    serviceSelect.addEventListener("change", async function () {
+        const response = await fetch(`/slot/serviceSlots/${this.value}/json`);
+        const slots = await response.json();
 
-    //     slotSelect.innerHTML = "";
-    //     slots.forEach(slot => {
-    //         const availableCapacity = slot.availableCapacity;
-    //         if (availableCapacity > 0) {
-    //             const option = document.createElement("option");
-    //             option.value = slot.id;
-    //             option.dataset.availableCapacity = availableCapacity;
-    //             option.textContent = `${slot.startTime} - ${slot.endTime} (${availableCapacity} ${availableCapacity > 1 ? 'pizzas restantes' : 'place restante'})`;
-    //             slotSelect.appendChild(option);
-    //         }
-    //     });
+        slotSelect.innerHTML = "";
+        slots.forEach(slot => {
+            const availableCapacity = slot.availableCapacity;
+            if (availableCapacity > 0) {
+                const option = document.createElement("option");
+                option.value = slot.id;
+                option.dataset.availableCapacity = availableCapacity;
+                option.textContent = `${slot.startTime} - ${slot.endTime} (${availableCapacity} ${availableCapacity > 1 ? 'pizzas restantes' : 'place restante'})`;
+                slotSelect.appendChild(option);
+            }
+        });
     // // Manage former slot selected
     //     if (slotSelected) {
     //         slotSelect.value = slotSelected;
@@ -43,18 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
     //         }
     //     }
 
-    //     slotSelect.dispatchEvent(new Event("change"));
-    // });
-    // slotSelect.addEventListener("change", function () {
-    //     const selectedOption = this.options[this.selectedIndex];
-    //     maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
-    //     updateCapacityStatus();
-    //     // Adapt the cart if the total quantity exceeds the new maxQuantity
-    //     if (totalQuantity > maxQuantity) {
-    //         alert(`La capacité du créneau selectionné est dépassée, veuillez ajuster votre panier ou bien sélectionner un autre créneau pour pouvoir placer votre réservation.`);
-    //     }
-    // });
-    // serviceSelect.dispatchEvent(new Event("change"));
+        slotSelect.dispatchEvent(new Event("change"));
+    });
+
+    slotSelect.addEventListener("change", function () {
+        const selectedOption = this.options[this.selectedIndex];
+        maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
+        updateCapacityStatus();
+        // Adapt the cart if the total quantity exceeds the new maxQuantity
+        if (totalQuantity > maxQuantity) {
+            alert(`La capacité du créneau selectionné est dépassée, veuillez ajuster votre panier ou bien sélectionner un autre créneau pour pouvoir placer votre réservation.`);
+        }
+    });
+    serviceSelect.dispatchEvent(new Event("change"));
 
     // // Manage former items if any
     // if (formerItems) {
