@@ -1,8 +1,27 @@
 # Odoo-learning
 
-Projet personnel d'apprentissage et d'expérimentation autour de **python** et **Odoo 19**.
+Projet personnel d'apprentissage et d'expérimentation autour de **Python** et de **Odoo 19**.
 
-L'objectif est de découvrir python ainsi que le fonctionnement d'Odoo, son architecture, le développement de modules personnalisés et son intégration avec PostgreSQL.
+Le projet est déployé sur :**<br>[https://ol.petitmaraichin.fr/](https://ol.petitmaraichin.fr/)**
+<br><br>
+Il est possible de se connecter avec l'utilisateur user/user.  
+<br>
+Les modules :
+* **Biblio** (apps-> Catégorie Learning) :  
+Découverte de la création de modèles, des relations entre modèles, de l'ORM Odoo ainsi que de la création de vues et des opérations de CRUD.  
+**[Lien vers l'application publique](https://ol.petitmaraichin.fr/bibliothèque/livres)**  
+<br>
+* **ResaTable** (apps-> Catégorie Learning) :  
+**_en cours de développement ..._**  
+Application de réservation de tables et/ou pizzas pour restaurant.  
+**[Lien vers l'application publique](https://ol.petitmaraichin.fr/resatable/home)**  
+    >_Adapté d'un projet Symfony non finalisé :_  
+        _◦ [Lien vers l'application Symfony déployée](https://rt.petitmaraichin.fr/)_  
+        _◦ [Lien vers le repo GitHub](https://github.com/Emilien-GIBEAUD/ResaTable)_
+
+<br>
+<br>
+L'objectif de ce projet est de découvrir python ainsi que le fonctionnement d'Odoo, son architecture, le développement de modules personnalisés et son intégration avec PostgreSQL.
 
 L'architecture de développement est basée sur [https://ecosire.com/blog/how-to-set-up-odoo-development-environment-2026](https://ecosire.com/blog/how-to-set-up-odoo-development-environment-2026) avec les adaptations suivantes :
 
