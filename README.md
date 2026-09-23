@@ -11,10 +11,11 @@ Les modules :
 Découverte de la création de modèles, des relations entre modèles, de l'ORM Odoo ainsi que de la création de vues et des opérations de CRUD.  
 **[Lien vers l'application publique](https://ol.petitmaraichin.fr/bibliothèque/livres)**  
 <br>
-* **ResaTable** (apps-> Catégorie Learning) :  
-**_en cours de développement ..._**  
-Application de réservation de tables et/ou pizzas pour restaurant.  
-**[Lien vers l'application publique](https://ol.petitmaraichin.fr/resatable/home)**  
+* **ResaTable** (apps-> Catégorie Learning) :  <br>
+**_en cours de développement ..._**  <br>
+Application de réservation de tables et/ou pizzas pour restaurant.  <br>
+**[Lien vers l'application publique](https://ol.petitmaraichin.fr/resatable/home)**  <br>
+
     >_Adapté d'un projet Symfony non finalisé :_  
         _◦ [Lien vers l'application Symfony déployée](https://rt.petitmaraichin.fr/)_  
         _◦ [Lien vers le repo GitHub](https://github.com/Emilien-GIBEAUD/ResaTable)_
