@@ -6,11 +6,13 @@ Le projet est déployé sur :**<br>[https://ol.petitmaraichin.fr/](https://ol.pe
 <br><br>
 Il est possible de se connecter avec l'utilisateur user/user.  
 <br>
-Les modules :
+Les modules :  
+
 * **Biblio** (apps-> Catégorie Learning) :  
 Découverte de la création de modèles, des relations entre modèles, de l'ORM Odoo ainsi que de la création de vues et des opérations de CRUD.  
 **[Lien vers l'application publique](https://ol.petitmaraichin.fr/bibliothèque/livres)**  
 <br>
+
 * **ResaTable** (apps-> Catégorie Learning) :  <br>
 **_en cours de développement ..._**  <br>
 Application de réservation de tables et/ou pizzas pour restaurant.  <br>
