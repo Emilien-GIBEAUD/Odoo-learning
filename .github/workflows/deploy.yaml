@@ -14,6 +14,7 @@ jobs:
           cd /home/ubuntu/Projets/Odoo-learning/ol_py
           git fetch origin main
           git reset --hard origin/main
+
           docker compose -f compose.prod.yaml build --no-cache
           docker compose -f compose.prod.yaml up -d --force-recreate --remove-orphans
           docker image prune -f
@@ -27,14 +28,19 @@ jobs:
 
       - name: upgrade Odoo modules
         run: |
-          docker exec odoo_ol sh -c '
-            odoo \
-              -c /etc/odoo/odoo.conf \
+          cd /home/ubuntu/Projets/Odoo-learning/ol_py
+          docker compose -f compose.prod.yaml stop odoo
+
+          if docker compose -f compose.prod.yaml run --rm --no-deps odoo \
               -d odoo \
-              -r "$USER" \
-              -w "$PASSWORD" \
-              --db_host=postgres \
-              --db_port=5432 \
               -u all \
               --stop-after-init
-          '
+          then
+              docker compose -f compose.prod.yaml up -d --force-recreate --no-deps odoo
+          else
+              echo "Odoo module upgrade failed."
+              docker compose -f compose.prod.yaml up -d --force-recreate --no-deps odoo
+              exit 1
+          fi
+
+          docker image prune -f
