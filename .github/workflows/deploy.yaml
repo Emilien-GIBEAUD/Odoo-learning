@@ -12,8 +12,8 @@ jobs:
       - name: git pull then local build and deploy
         run: |
           cd /home/ubuntu/Projets/Odoo-learning/ol_py
-          git reset --hard
-          git pull origin main
+          git fetch origin main
+          git reset --hard origin/main
           docker compose -f compose.prod.yaml build --no-cache
           docker compose -f compose.prod.yaml up -d --remove-orphans
           docker image prune -f
