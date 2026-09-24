@@ -1,4 +1,5 @@
-// Pizzas cart management in the booking form on the page /pizzas
+// Pizza cart management in the booking form on the page /pizzas
+
 document.addEventListener('DOMContentLoaded', () => {
     const addButton = document.getElementById('addPizza');
     const bookingButton = document.getElementById('addBooking');
@@ -14,12 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let cartTotalQuantity = document.getElementById('cartTotalQuantity');
     let maxQuantity = 10; // To be replaced with the booking slot max quantity
 
-    // const serviceSelect = document.getElementById("serviceDate");
-    // const slotSelect = document.getElementById("serviceSlot");
-    // const slotSelected = slotSelect.dataset.selectedSlot;
-    // const formerItems = document.getElementById("formerItems");
+    const serviceSelect = document.getElementById("serviceDate");
+    const slotSelect = document.getElementById("serviceSlot");
+    // // const slotSelected = slotSelect.dataset.selectedSlot;
+    // // const formerItems = document.getElementById("formerItems");
 
     // // Manage the service and slot selects
+    serviceDate.addEventListener('change', function () {
+        const serviceId = this.value;
+        slotSelect.querySelectorAll('option').forEach(option => {
+            option.hidden = option.dataset.serviceId !== serviceId;
+        });
+        // slotSelect.dispatchEvent(new Event("change")); PAS NECESSAIRE A PRIORI
+    });
+    // On page load, trigger the service change to have correct slots visible
+    serviceSelect.dispatchEvent(new Event("change"));
+
     // serviceSelect.addEventListener("change", async function () {
     //     const response = await fetch(`/slot/serviceSlots/${this.value}/json`);
     //     const slots = await response.json();
@@ -35,26 +46,27 @@ document.addEventListener('DOMContentLoaded', () => {
     //             slotSelect.appendChild(option);
     //         }
     //     });
-    // // Manage former slot selected
-    //     if (slotSelected) {
-    //         slotSelect.value = slotSelected;
-    //         if (slotSelect.value === "") {
-    //             slotSelect.value = slotSelect.options[0].value;
-    //         }
-    //     }
+    // // // Manage former slot selected
+    // //     if (slotSelected) {
+    // //         slotSelect.value = slotSelected;
+    // //         if (slotSelect.value === "") {
+    // //             slotSelect.value = slotSelect.options[0].value;
+    // //         }
+    // //     }
 
     //     slotSelect.dispatchEvent(new Event("change"));
     // });
-    // slotSelect.addEventListener("change", function () {
-    //     const selectedOption = this.options[this.selectedIndex];
-    //     maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
-    //     updateCapacityStatus();
-    //     // Adapt the cart if the total quantity exceeds the new maxQuantity
-    //     if (totalQuantity > maxQuantity) {
-    //         alert(`La capacité du créneau selectionné est dépassée, veuillez ajuster votre panier ou bien sélectionner un autre créneau pour pouvoir placer votre réservation.`);
-    //     }
-    // });
-    // serviceSelect.dispatchEvent(new Event("change"));
+
+    // Update the maxQuantity and the capacity status on slot change
+    slotSelect.addEventListener("change", function () {
+        const selectedOption = this.options[this.selectedIndex];
+        maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
+        updateCapacityStatus();
+        // Adapt the cart if the total quantity exceeds the new maxQuantity
+        if (totalQuantity > maxQuantity) {
+            alert(`La capacité du créneau selectionné est dépassée, veuillez ajuster votre panier ou bien sélectionner un autre créneau pour pouvoir placer votre réservation.`);
+        }
+    });
 
     // // Manage former items if any
     // if (formerItems) {
@@ -109,6 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //     });
     // }
+
 
     // Manage the add button
     addButton.addEventListener('click', () => {
@@ -186,6 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     });
 
+
+// functions
     function removeItem(row) {
         const rowTotal = parseFloat(row.querySelector('.total').textContent);
         // Update the total and the items count
