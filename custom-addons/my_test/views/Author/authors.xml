@@ -29,7 +29,7 @@
                                 </t>
                             </td>
                             <td>
-                                <a t-att-href="url_for('/bibliothèque/auteurs/%s' % author.id)">
+                                <a class="fw-bold text-decoration-underline" t-att-href="url_for('/bibliothèque/auteurs/%s' % author.id)">
                                     Voir
                                 </a>
                             </td>

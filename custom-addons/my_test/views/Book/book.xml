@@ -9,7 +9,7 @@
                 <h1 t-out="book.name"/>
                 <p class="mb-2">
                     Auteur :
-                    <a t-att-href="url_for('/bibliothèque/auteurs/%s' % book.author_id.id)">
+                    <a class="fw-bold text-decoration-underline" t-att-href="url_for('/bibliothèque/auteurs/%s' % book.author_id.id)">
                         <t t-out="book.author_id.name"/>
                     </a>
                 </p>
@@ -19,7 +19,7 @@
                 </p>
                 <p class="mb-2" t-out="book.description"/>
             </div>
-            <a t-att-href="url_for('/bibliothèque/livres')">retour à la liste des livres</a>
+            <a class="fw-bold text-decoration-underline" t-att-href="url_for('/bibliothèque/livres')">retour à la liste des livres</a>
         </main>
     </div>
     </t>

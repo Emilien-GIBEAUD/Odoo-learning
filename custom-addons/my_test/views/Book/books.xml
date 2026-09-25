@@ -24,7 +24,7 @@
                             <td t-out="book.author_id.name"/>
                             <td t-out="book.year"/>
                             <td>
-                                <a t-att-href="url_for('/bibliothèque/livres/%s' % book.id)">
+                                <a class="fw-bold text-decoration-underline" t-att-href="url_for('/bibliothèque/livres/%s' % book.id)">
                                     Voir
                                 </a>
                             </td>
