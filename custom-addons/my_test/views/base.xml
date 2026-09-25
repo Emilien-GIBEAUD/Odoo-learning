@@ -4,6 +4,7 @@
     <html>
     <head>
         <link rel="icon" href="/my_test/static/src/icon/icon.svg" type="image/x-icon"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <t t-call-assets="web.assets_frontend"/>
         <title><t t-out="page_title"/></title>
     </head>
