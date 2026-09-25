@@ -11,6 +11,14 @@ class PizzaController(http.Controller):
         services = http.request.env['resa_table.service'].search([
             ('bookingOpen', '=', True)
         ])
+        # for service in services:
+        #     for slot in service.service_slot_ids:
+        #         print(
+        #             f"slot={slot.id}, "
+        #             f"capacity={slot.capacity}, "
+        #             f"reservation={slot.reservation}, "
+        #             f"available={slot.available_capacity}"
+        #         )
         return http.request.render(
             'resa_table.pizzas_page',
             {

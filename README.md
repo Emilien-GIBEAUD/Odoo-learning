@@ -40,14 +40,20 @@ Pour démarrer un projet tout frais voir la section suivante :**<br>[🚀 Démar
 ## 🛠️ Technologies
 
 * **Odoo 19.0**
-* **Python 3.12**
+* **Python**
+    * Python 3.12 (Ubuntu 24.04)
+    * Python 3.14 (Ubuntu 26.04)
 * **PostgreSQL**
+* **pgAdmin**
+* **WSL2 / Ubuntu, Ubuntu**
+    * Testé sur :
+        * WSL2 / Ubuntu 24.04
+        * Ubuntu 26.04
 * **Docker / Docker Compose**
+* **Git**
 * **VS Code**
     * Extension Odoo de Odoo (version 1.5.0 et > requise)
     * Extension Python de Microsoft
-* **WSL2 / Ubuntu**
-* **Git**
 <br>
 <br>
 

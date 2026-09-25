@@ -83,17 +83,17 @@ class Service(models.Model):
 
 # To generate service slots
     def generate_slots(self):
-        current_start_time = self.startTime
-        end_time = self.endTime
-        duration = self.slotDurationInMin / 60.0
-        while current_start_time + duration <= end_time:
-            service_slot = self.env['resa_table.service_slot'].create({
-                'name': current_start_time,
+        start_minutes = round(self.startTime * 60)
+        end_minutes = round(self.endTime * 60)
+        duration = self.slotDurationInMin
+        current_start_minutes = start_minutes
+        while current_start_minutes + duration <= end_minutes:
+            self.env['resa_table.service_slot'].create({
+                'name': current_start_minutes / 60.0,
                 'capacity': self.capacityPerSlot,
-                'service_id': self.id
+                'service_id': self.id,
             })
-            current_start_time += duration
-
+            current_start_minutes += duration
 
 # To open the service slots view
     def slots(self):

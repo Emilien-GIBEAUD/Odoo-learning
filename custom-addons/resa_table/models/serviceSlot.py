@@ -13,6 +13,7 @@ class ServiceSlot(models.Model):
     duration = fields.Integer(string='Durée', compute='_compute_duration',store=False)
     reservation = fields.Integer(string='Réservations', compute='_compute_reservation',store=False)
     capacity = fields.Integer(string='Capacité', required=True)
+    available_capacity = fields.Integer(string='Capacité disponible', compute='_compute_available_capacity', store=False)
     service_id = fields.Many2one('resa_table.service', string='Service', required=True)
     display_service = fields.Char(string='Service', related='service_id.display_service', store=False)
 
@@ -24,14 +25,25 @@ class ServiceSlot(models.Model):
         for slot in self:
             slot.reservation = 0    # A modifier quand les réservations seront implémentées
 
+    def _compute_available_capacity(self):
+        for slot in self:
+            slot.available_capacity = slot.capacity - slot.reservation
+
 # To compute the display_service
     @api.depends('name', 'duration', 'reservation', 'capacity')
     def _compute_display_slot(self):
         for slot in self:
-            slot_end_time = slot.name + (slot.duration / 60)
+            start_minutes = round(slot.name * 60)
+            end_minutes = start_minutes + slot.duration
+
+            start_hour, start_minute = divmod(start_minutes, 60)
+            end_hour, end_minute = divmod(end_minutes, 60)
+
             available_capacity = slot.capacity - slot.reservation
+
             slot.display_slot = (
-                f"{int(slot.name):02d}:{round((slot.name % 1) * 60):02d} - "
-                f"{int(slot_end_time):02d}:{round((slot_end_time % 1) * 60):02d} ("
-                f"{available_capacity}{' pizzas disponibles' if available_capacity > 1 else ' pizza disponible'})"
+                f"{start_hour:02d}:{start_minute:02d} - "
+                f"{end_hour:02d}:{end_minute:02d} ("
+                f"{available_capacity}"
+                f"{' pizzas disponibles' if available_capacity > 1 else ' pizza disponible'})"
             )

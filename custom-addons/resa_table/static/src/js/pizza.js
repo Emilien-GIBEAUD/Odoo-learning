@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let cartTotal = document.getElementById('cartTotal');
     let totalQuantity = 0;
     let cartTotalQuantity = document.getElementById('cartTotalQuantity');
-    let maxQuantity = 10; // To be replaced with the booking slot max quantity
+    let maxQuantity = 0; // To be replaced with the booking slot max quantity
 
     const serviceSelect = document.getElementById("serviceDate");
     const slotSelect = document.getElementById("serviceSlot");
@@ -21,52 +21,38 @@ document.addEventListener('DOMContentLoaded', () => {
     // // const formerItems = document.getElementById("formerItems");
 
     // // Manage the service and slot selects
-    serviceDate.addEventListener('change', function () {
+    serviceSelect.addEventListener('change', function () {
         const serviceId = this.value;
-        slotSelect.querySelectorAll('option').forEach(option => {
-            option.hidden = option.dataset.serviceId !== serviceId;
+        console.log("service change");
+
+        const options = slotSelect.querySelectorAll('option');
+        let firstVisibleOption = null;
+        options.forEach(option => {
+            const visible = option.dataset.serviceId === serviceId && parseInt(option.dataset.availableCapacity) > 0;
+            option.hidden = !visible;
+            if (visible && firstVisibleOption === null) {
+                firstVisibleOption = option;
+            }
         });
-        // slotSelect.dispatchEvent(new Event("change")); PAS NECESSAIRE A PRIORI
+        if (firstVisibleOption) {
+            firstVisibleOption.selected = true;
+            slotSelect.dispatchEvent(new Event("change"));
+        }
     });
-    // On page load, trigger the service change to have correct slots visible
-    serviceSelect.dispatchEvent(new Event("change"));
-
-    // serviceSelect.addEventListener("change", async function () {
-    //     const response = await fetch(`/slot/serviceSlots/${this.value}/json`);
-    //     const slots = await response.json();
-
-    //     slotSelect.innerHTML = "";
-    //     slots.forEach(slot => {
-    //         const availableCapacity = slot.availableCapacity;
-    //         if (availableCapacity > 0) {
-    //             const option = document.createElement("option");
-    //             option.value = slot.id;
-    //             option.dataset.availableCapacity = availableCapacity;
-    //             option.textContent = `${slot.startTime} - ${slot.endTime} (${availableCapacity} ${availableCapacity > 1 ? 'pizzas restantes' : 'place restante'})`;
-    //             slotSelect.appendChild(option);
-    //         }
-    //     });
-    // // // Manage former slot selected
-    // //     if (slotSelected) {
-    // //         slotSelect.value = slotSelected;
-    // //         if (slotSelect.value === "") {
-    // //             slotSelect.value = slotSelect.options[0].value;
-    // //         }
-    // //     }
-
-    //     slotSelect.dispatchEvent(new Event("change"));
-    // });
 
     // Update the maxQuantity and the capacity status on slot change
     slotSelect.addEventListener("change", function () {
         const selectedOption = this.options[this.selectedIndex];
         maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
+        console.log(maxQuantity);
         updateCapacityStatus();
         // Adapt the cart if the total quantity exceeds the new maxQuantity
         if (totalQuantity > maxQuantity) {
             alert(`La capacité du créneau selectionné est dépassée, veuillez ajuster votre panier ou bien sélectionner un autre créneau pour pouvoir placer votre réservation.`);
         }
     });
+    // On page load, trigger the service change to have correct slots visible
+    serviceSelect.dispatchEvent(new Event("change"));
 
     // // Manage former items if any
     // if (formerItems) {

@@ -55,7 +55,7 @@
                                     <!-- injected ?? OU PAS -->
                                     <t t-foreach="services" t-as="service">
                                         <t t-foreach="service.service_slot_ids" t-as="slot">
-                                            <option t-att-value="slot.id" t-att-data-service-id="service.id">
+                                            <option t-att-value="slot.id" t-att-data-service-id="service.id" t-att-data-available-capacity="str(slot.available_capacity)"><!-- evite false avec 0 -->
                                                 <t t-out="slot.display_slot"/>
                                             </option>
                                         </t>
