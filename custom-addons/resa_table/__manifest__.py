@@ -22,6 +22,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/Pizza/pizzas.xml',
+        'views/Reservation/serviceReservation.xml',
         'views/base.xml',
         'views/conditions.xml',
         'views/home.xml',

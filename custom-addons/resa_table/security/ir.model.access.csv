@@ -7,3 +7,7 @@ access_resa_table_service_admin,resa_table.service,model_resa_table_service,base
 access_resa_table_service_visitor,resa_table.service,model_resa_table_service,,1,0,0,0
 access_resa_table_service_slot_admin,resa_table.service_slot,model_resa_table_service_slot,base.group_system,1,1,1,1
 access_resa_table_service_slot_visitor,resa_table.service_slot,model_resa_table_service_slot,,1,0,0,0
+access_resa_table_reservation_admin,resa_table.reservation,model_resa_table_reservation,base.group_system,1,1,1,1
+access_resa_table_reservation_visitor,resa_table.reservation,model_resa_table_reservation,,1,1,1,0
+access_resa_table_reservation_item_admin,resa_table.reservation_item,model_resa_table_reservation_item,base.group_system,1,1,1,1
+access_resa_table_reservation_item_visitor,resa_table.reservation_item,model_resa_table_reservation_item,,1,1,1,0

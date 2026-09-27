@@ -113,4 +113,18 @@ class Service(models.Model):
 
 # To open the service reservations view
     def reservations(self):
-        pass
+        self.ensure_one()
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Réservations',
+            'res_model': 'resa_table.service',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'views': [
+                (self.env.ref(
+                    'resa_table.service_reservations_view'
+                ).id, 'form')
+            ],
+        }
+    

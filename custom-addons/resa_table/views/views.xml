@@ -38,6 +38,61 @@
 		<field name="view_mode">list,form</field>
 	</record>
 
+<!-- Service Reservations -->
+	<record id="reservation_item_list_view" model="ir.ui.view">
+		<field name="name">resa_table.reservation_item.list</field>
+		<field name="model">resa_table.reservation_item</field>
+
+		<field name="arch" type="xml">
+			<list expand="1">
+				<field name="name" string="!!! agrégats faux pour tot. !!!"/>
+				<field name="quantity"/>
+				<field name="unit_price" string="Prix unit./tot." width="85px"/>
+			</list>
+		</field>
+	</record>
+
+	<record id="action_pizza_service_items" model="ir.actions.act_window">
+		<field name="name">EN DÉVELOPPEMENT — Réservations du service</field>
+		<field name="res_model">resa_table.reservation_item</field>
+		<field name="view_mode">list</field>
+		<field name="domain">[('reservation_id.slot_id.service_id', '=', active_id)]</field>
+		<!-- Liste à plusieurs niveaux en cours, les agrégats pour la colonne prix ne sont pas conformes pour réservation et slot car ils ne tiennent pas compte de la qtt -->
+		<!-- <field name="context">{
+			'group_by': ['reservation_id.slot_id', 'reservation_id'],
+			'default_service_id': active_id,
+		}</field> --><!-- Ancienne version NOK -->
+		<!-- <field name="context">
+			{
+				'group_by': ['reservation_id'],
+			}
+		</field> --><!-- Test OK, , je vois Dupont, Martin, ... et je peux pas les dérouler avec la flèche, je vois ensuite le nom des pizzas  -->
+		<!-- <field name="context">
+			{
+				'group_by': [
+					'reservation_id',
+					'reservation_id.slot_id',
+				],
+			}
+		</field> --><!-- Test ~OK, je vois Dupont, Martin, ... mais je ne peux pas les dérouler avec la flèche -->
+		<!-- <field name="context">
+			{
+				'group_by': [
+					'reservation_id.slot_id',
+					'reservation_id',
+				]
+			}
+		</field> --><!-- Test NOK, la mise à niveau fonctionne mais quand je clique sur le bouton j'ai une erreur -->
+		<field name="context">
+			{
+				'group_by': [
+					'slot_id',
+					'reservation_id'
+				]
+			}
+		</field>
+	</record>
+
 <!-- Services -->
     <record id="service_list_view" model="ir.ui.view">
         <field name="name">resa_table.service.list</field>
@@ -51,10 +106,15 @@
                 <field name="bookingOpen" class="text-center" width="130px"/>
 				<button name="slots"
 						type="object"
-						string="Créneaux"/>
-				<button name="reservations"
+						string="Voir créneaux" 
+						class="btn-primary"/>
+				<!-- <button name="reservations"
 						type="object"
-						string="Réservations"/>
+						string="Réservations"/> -->
+				<button name="%(action_pizza_service_items)d" 
+						type="action" 
+						string="...Voir réservations..." 
+						class="btn-primary"/>
             </list>
         </field>
     </record>
@@ -79,10 +139,15 @@
 						<field name="originTemplate"/>
 						<button name="slots"
 								type="object"
-								string="Créneaux"/>
-						<button name="reservations"
+								string="Voir créneaux" 
+								class="btn-primary"/>
+						<!-- <button name="reservations"
 								type="object"
-								string="Réservations"/>
+								string="Réservations"/> -->
+						<button name="%(action_pizza_service_items)d" 
+								type="action" 
+								string="...Voir réservations..." 
+								class="btn-primary"/>
 					</group>
 				</sheet>
 			</form>
@@ -96,37 +161,37 @@
 	</record>
 
 <!-- Service Slots -->
-<record id="service_slot_list_view" model="ir.ui.view">
-    <field name="name">resa_table.service.slot.list</field>
-    <field name="model">resa_table.service_slot</field>
-    <field name="arch" type="xml">
-        <list>
-            <field name="name" widget="float_time"/>
-            <field name="duration"/>
-            <field name="reservation" width="90px"/>
-            <field name="capacity"/>
-            <field name="display_service"/>
-        </list>
-    </field>
-</record>
+	<record id="service_slot_list_view" model="ir.ui.view">
+		<field name="name">resa_table.service.slot.list</field>
+		<field name="model">resa_table.service_slot</field>
+		<field name="arch" type="xml">
+			<list>
+				<field name="name" widget="float_time"/>
+				<field name="duration"/>
+				<field name="reservation" width="90px"/>
+				<field name="capacity"/>
+				<field name="display_service"/>
+			</list>
+		</field>
+	</record>
 
-<record id="service_slot_form_view" model="ir.ui.view">
-    <field name="name">resa_table.service.slot.form</field>
-    <field name="model">resa_table.service_slot</field>
-    <field name="arch" type="xml">
-        <form>
-            <sheet>
-                <group>
-                    <field name="name" widget="float_time"/>
-					<field name="duration"/>
-					<field name="reservation"/>
-                    <field name="capacity"/>
-                    <field name="display_service"/>
-                </group>
-            </sheet>
-        </form>
-    </field>
-</record>
+	<record id="service_slot_form_view" model="ir.ui.view">
+		<field name="name">resa_table.service.slot.form</field>
+		<field name="model">resa_table.service_slot</field>
+		<field name="arch" type="xml">
+			<form>
+				<sheet>
+					<group>
+						<field name="name" widget="float_time"/>
+						<field name="duration"/>
+						<field name="reservation"/>
+						<field name="capacity"/>
+						<field name="display_service"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
 
 <!-- Service Templates -->
     <record id="service_template_list_view" model="ir.ui.view">

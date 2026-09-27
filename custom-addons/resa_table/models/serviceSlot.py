@@ -14,8 +14,9 @@ class ServiceSlot(models.Model):
     reservation = fields.Integer(string='Réservations', compute='_compute_reservation',store=False)
     capacity = fields.Integer(string='Capacité', required=True)
     available_capacity = fields.Integer(string='Capacité disponible', compute='_compute_available_capacity', store=False)
-    service_id = fields.Many2one('resa_table.service', string='Service', required=True)
     display_service = fields.Char(string='Service', related='service_id.display_service', store=False)
+    service_id = fields.Many2one('resa_table.service', string='Service', required=True)
+    reservation_ids = fields.One2many('resa_table.reservation', 'slot_id', string='Réservations')
 
     def _compute_duration(self):
         for slot in self:
@@ -47,3 +48,9 @@ class ServiceSlot(models.Model):
                 f"{available_capacity}"
                 f"{' pizzas disponibles' if available_capacity > 1 else ' pizza disponible'})"
             )
+
+# To display display_slot instead of default name in "action_pizza_service_items"
+    @api.depends('name')
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = record.display_slot
