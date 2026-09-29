@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // // Manage the service and slot selects
     serviceSelect.addEventListener('change', function () {
         const serviceId = this.value;
-        console.log("service change");
 
         const options = slotSelect.querySelectorAll('option');
         let firstVisibleOption = null;
@@ -44,7 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     slotSelect.addEventListener("change", function () {
         const selectedOption = this.options[this.selectedIndex];
         maxQuantity = parseInt(selectedOption.dataset.availableCapacity);
-        console.log(maxQuantity);
         updateCapacityStatus();
         // Adapt the cart if the total quantity exceeds the new maxQuantity
         if (totalQuantity > maxQuantity) {
@@ -142,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         row.innerHTML = `
-            <input type="hidden" name="item[${id}]" value="${qty}">
+            <input type="hidden" name="item_id_${id}" value="${qty}">
             <td>${name}</td>
             <td class="quantity">${qty}</td>
             <td class="price">${price.toFixed(2)} €</td>

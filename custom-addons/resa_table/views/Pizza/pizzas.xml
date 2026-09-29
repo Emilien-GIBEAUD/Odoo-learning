@@ -37,6 +37,7 @@
                 <h2 class="mt-5">Notre service de réservation</h2>
                 <t t-if="services">
                     <form method="post" action="" class="needs-validation" novalidate="">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <div class="row g-3">
                             <h4>Nos disponibilités</h4>
                             <div class="col-md-4"> 
@@ -52,10 +53,10 @@
                             <div class="col-md-4"> 
                                 <label class="form-label required" for="serviceSlot">Choisissez votre horaire</label>
                                 <select     class="form-select" name="serviceSlot" id="serviceSlot" data-selected-slot="">
-                                    <!-- injected ?? OU PAS -->
+                                    <!-- then treated with JS considering the service selected -->
                                     <t t-foreach="services" t-as="service">
                                         <t t-foreach="service.service_slot_ids" t-as="slot">
-                                            <option t-att-value="slot.id" t-att-data-service-id="service.id" t-att-data-available-capacity="str(slot.available_capacity)"><!-- evite false avec 0 -->
+                                            <option t-att-value="slot.id" t-att-data-service-id="service.id" t-att-data-available-capacity="str(slot.available_capacity)"><!-- avoid false with 0 -->
                                                 <t t-out="slot.display_slot"/>
                                             </option>
                                         </t>
@@ -114,22 +115,34 @@
                             <h4>Vos coordonnées</h4>
                             <div class="col-sm-6">
                                 <label for="firstName" class="form-label">Prénom</label> 
-                                <input type="text" class="form-control" id="firstName" name="reservation[firstName]" placeholder="Votre prénom" value=""/>
+                                <input type="text" class="form-control" id="firstName" name="reservation[firstName]" placeholder="Votre prénom" t-att-value="form_data.get('reservation[firstName]', '')"/>
                             </div>
                             <div class="col-sm-6">
                                 <label for="lastName" class="form-label">Nom</label>
-                                <input type="text" class="form-control" id="lastName" name="reservation[lastName]" placeholder="Votre nom" value=""/>
+                                <input type="text" class="form-control" id="lastName" name="reservation[lastName]" placeholder="Votre nom" t-att-value="form_data.get('reservation[lastName]', '')"/>
                             </div>
                             <div class="col-7">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="reservation[email]" placeholder="Votre email" value=""/>
+                                <input type="email" class="form-control" id="email" name="reservation[email]" placeholder="Votre email" t-att-value="form_data.get('reservation[email]', '')"/>
                             </div>
                             <div class="col-5">
                                 <label for="phone" class="form-label">Téléphone</label>
-                                <input type="tel" class="form-control" id="phone" name="reservation[phone]" placeholder="06... ou 07... uniquement" value=""/>
+                                <input type="tel" class="form-control" id="phone" name="reservation[phone]" placeholder="06... ou 07... uniquement" t-att-value="form_data.get('reservation[phone]', '')"/>
                             </div>
                             <hr class="my-4"/>
                         </div>
+                        <t t-if="errors">
+                            <div class="alert alert-danger" id="errors">
+                                <ul class="mb-0">
+                                    <li t-foreach="errors" t-as="error"><t t-out="error"/></li>
+                                </ul>
+                            </div>
+                            <script>
+                                document.addEventListener('DOMContentLoaded', () => {
+                                    document.getElementById('errors')?.scrollIntoView({ behavior: 'smooth' });
+                                });
+                            </script>
+                        </t>
                         <div class="d-flex justify-content-center">
                             <button type="submit" id="addBooking" class="btn btn-primary">Réserver</button>
                         </div>

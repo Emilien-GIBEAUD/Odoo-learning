@@ -24,7 +24,14 @@ class ServiceSlot(models.Model):
 
     def _compute_reservation(self):
         for slot in self:
-            slot.reservation = 0    # A modifier quand les réservations seront implémentées
+            reservations = slot.reservation_ids.filtered(
+                lambda reservation: reservation.status in ('PENDING', 'CONFIRMED')
+            )
+            slot.reservation = sum(
+                reservations.mapped(
+                    "reservation_item_ids.quantity"
+                )
+            )
 
     def _compute_available_capacity(self):
         for slot in self:

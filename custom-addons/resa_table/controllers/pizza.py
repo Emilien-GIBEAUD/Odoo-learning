@@ -3,7 +3,7 @@ from odoo import http
 
 class PizzaController(http.Controller):
 
-    @http.route('/resatable/pizzas', type='http', auth='public', website=True)
+    @http.route('/resatable/pizzas', type='http', auth='public', website=True,methods=['GET'])
     def pizzas(self):
         pizzas = http.request.env['resa_table.pizza'].search([
             ('isActive', '=', True)
@@ -16,5 +16,7 @@ class PizzaController(http.Controller):
             {
                 'pizzas': pizzas,
                 'services': services,
+                'errors': [],
+                'form_data': {},
             }
         )
