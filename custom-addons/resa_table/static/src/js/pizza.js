@@ -17,24 +17,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const serviceSelect = document.getElementById("serviceDate");
     const slotSelect = document.getElementById("serviceSlot");
-    // // const slotSelected = slotSelect.dataset.selectedSlot;
-    // // const formerItems = document.getElementById("formerItems");
+    // const slotSelected = slotSelect.dataset.selectedSlot;
+    const formerItems = document.getElementById("formerItems");
 
-    // // Manage the service and slot selects
+    // Manage the service and slot selects
     serviceSelect.addEventListener('change', function () {
         const serviceId = this.value;
+        const selectedSlotId = slotSelect.dataset.selectedSlot;
 
         const options = slotSelect.querySelectorAll('option');
         let firstVisibleOption = null;
+        let restoredOption = null;
         options.forEach(option => {
             const visible = option.dataset.serviceId === serviceId && parseInt(option.dataset.availableCapacity) > 0;
             option.hidden = !visible;
-            if (visible && firstVisibleOption === null) {
-                firstVisibleOption = option;
+            if (visible) {
+                if (firstVisibleOption === null) {
+                    firstVisibleOption = option;
+                }
+
+                if (option.value === selectedSlotId) {
+                    restoredOption = option;
+                }
             }
         });
-        if (firstVisibleOption) {
-            firstVisibleOption.selected = true;
+        const optionToSelect = restoredOption ?? firstVisibleOption;
+        if (optionToSelect) {
+            optionToSelect.selected = true;
             slotSelect.dispatchEvent(new Event("change"));
         }
     });
@@ -52,59 +61,59 @@ document.addEventListener('DOMContentLoaded', () => {
     // On page load, trigger the service change to have correct slots visible
     serviceSelect.dispatchEvent(new Event("change"));
 
-    // // Manage former items if any
-    // if (formerItems) {
-    //     formerItems.querySelectorAll('input').forEach(input => {
-    //         const pizzaId = input.dataset.pizza_id;
-    //         const quantity = parseInt(input.dataset.quantity);
-    //         const name = input.dataset.name;
-    //         const price = parseFloat(input.dataset.price);
-    //         let totalToAdd = price * quantity;
+    // Manage former items if any
+    if (formerItems) {
+        formerItems.querySelectorAll('input').forEach(input => {
+            const pizzaId = input.dataset.pizza_id;
+            const quantity = parseInt(input.dataset.quantity);
+            const name = input.dataset.name;
+            const price = parseFloat(input.dataset.price);
+            let totalToAdd = price * quantity;
 
-    //         const row = document.createElement('tr');
+            const row = document.createElement('tr');
 
-    //         row.innerHTML = `
-    //             <input type="hidden" name="item[${pizzaId}]" value="${quantity}">
-    //             <td>${name}</td>
-    //             <td class="quantity">${quantity}</td>
-    //             <td class="price">${price.toFixed(2)} €</td>
-    //             <td class="total">${totalToAdd.toFixed(2)} €</td>
-    //             <td class="d-flex align-items-center gap-1">
-    //                 <button type="button" class="btn p-0 border-0 bg-transparent btnDecrease">
-    //                     <i class="bi bi-dash-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
-    //                 </button>
-    //                 <button type="button" class="btn p-0 border-0 bg-transparent btnIncrease">
-    //                     <i class="bi bi-plus-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
-    //                 </button>
-    //                 <button type="button" class="btn btn-danger btn-sm btnRemove">Supprimer</button>
-    //             </td>
-    //         `;
+            row.innerHTML = `
+                <input type="hidden" name="item[${pizzaId}]" value="${quantity}">
+                <td>${name}</td>
+                <td class="quantity">${quantity}</td>
+                <td class="price">${price.toFixed(2)} €</td>
+                <td class="total">${totalToAdd.toFixed(2)} €</td>
+                <td class="d-flex align-items-center gap-1">
+                    <button type="button" class="btn p-0 border-0 bg-transparent btnDecrease">
+                        <i class="bi bi-dash-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
+                    </button>
+                    <button type="button" class="btn p-0 border-0 bg-transparent btnIncrease">
+                        <i class="bi bi-plus-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm btnRemove">Supprimer</button>
+                </td>
+            `;
 
-    //         cartBody.appendChild(row);
+            cartBody.appendChild(row);
 
-    //     // Update the total and the items count
-    //         cartTotal.textContent = (parseFloat(cartTotal.textContent) + totalToAdd).toFixed(2);
-    //         nbItems++;
-    //         totalQuantity += quantity;
-    //         cartTotalQuantity.textContent = totalQuantity;
+        // Update the total and the items count
+            cartTotal.textContent = (parseFloat(cartTotal.textContent) + totalToAdd).toFixed(2);
+            nbItems++;
+            totalQuantity += quantity;
+            cartTotalQuantity.textContent = totalQuantity;
 
-    //         updateCapacityStatus();
-    //         updateCartStatus(1,row);
+            updateCapacityStatus();
+            updateCartStatus(1,row);
 
-    //     // Add event listener to the remove button
-    //         const removeButton = row.querySelector('button.btnRemove');
-    //         removeButton.addEventListener('click', () => removeItem(row));
+        // Add event listener to the remove button
+            const removeButton = row.querySelector('button.btnRemove');
+            removeButton.addEventListener('click', () => removeItem(row));
 
-    //     // Add event listener to the increase button
-    //         const increaseButton = row.querySelector('button.btnIncrease');
-    //         increaseButton.addEventListener('click', () => increaseItem(row));
+        // Add event listener to the increase button
+            const increaseButton = row.querySelector('button.btnIncrease');
+            increaseButton.addEventListener('click', () => increaseItem(row));
 
-    //     // Add event listener to the decrease button
-    //         const decreaseButton = row.querySelector('button.btnDecrease');
-    //         decreaseButton.addEventListener('click', () => decreaseItem(row));
+        // Add event listener to the decrease button
+            const decreaseButton = row.querySelector('button.btnDecrease');
+            decreaseButton.addEventListener('click', () => decreaseItem(row));
 
-    //     });
-    // }
+        });
+    }
 
 
     // Manage the add button

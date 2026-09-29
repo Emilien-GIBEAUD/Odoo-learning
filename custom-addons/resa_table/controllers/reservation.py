@@ -20,12 +20,15 @@ class ReservationController(http.Controller):
         slot_id = int(post.get('serviceSlot'))
 
         items = {}
+        former_items = {}
 
         for key, value in post.items():
             if key.startswith('item_id_'):
                 pizza_id = int(key[8:])
                 quantity = int(value)
                 items[pizza_id] = quantity
+                pizza = request.env['resa_table.pizza'].browse(pizza_id)
+                former_items[pizza_id] = (quantity,pizza.name,pizza.price)
 
         first_name = post.get('reservation[firstName]')
         last_name = post.get('reservation[lastName]')
@@ -89,13 +92,18 @@ class ReservationController(http.Controller):
             )
 
         if errors:
+            # return str({
+            #     'form_data': form_data,
+            #     'former_items': former_items,
+            # })
             return request.render(
                 'resa_table.pizzas_page',
                 {
                     'pizzas': pizzas,
                     'services': services,
                     'errors': errors,
-                    'form_data': form_data
+                    'form_data': form_data,
+                    'former_items': former_items,
                 }
             )
 

@@ -18,5 +18,6 @@ class PizzaController(http.Controller):
                 'services': services,
                 'errors': [],
                 'form_data': {},
+                'former_items': {},
             }
         )
