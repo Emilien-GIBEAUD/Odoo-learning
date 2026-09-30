@@ -20,9 +20,11 @@
 
     # always loaded
     'data': [
+        'mail/templates.xml',
         'security/ir.model.access.csv',
         'views/Pizza/pizzas.xml',
         'views/Reservation/pendingReservation.xml',
+        'views/Reservation/editReservation.xml',
         'views/base.xml',
         'views/conditions.xml',
         'views/home.xml',

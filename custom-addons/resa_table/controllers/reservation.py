@@ -120,15 +120,42 @@ class ReservationController(http.Controller):
             })
 
     # Send the askConfirmation email then redirect the visitor to the confirmation page
-        # TO DO : send the asking confirmation email
+        # ON GOING : send the asking confirmation email
+        template = request.env.ref(
+            'resa_table.email_asking_confirmation'
+        )
+        template.sudo().send_mail(
+            reservation.id,
+            force_send=True,
+        )
+
         return request.redirect('/resatable/reservation/pending')
 
 
-    @http.route('/resatable/reservation/pending', type='http', auth='public', website=True, methods=['GET','POST'],)
+    @http.route('/resatable/reservation/pending', type='http', auth='public', website=True, methods=['GET'],)
     def ReservationPending(self):
+        # TO DO send reservation
+
         return http.request.render(
             'resa_table.pending_reservation_page',
             {
+            }
+        )
+
+
+    @http.route('/resatable/reservation/visitor/<string:access_token>', type='http', auth='public', website=True, methods=['GET'],)
+    def ReservationPending(self, access_token):
+        reservation = request.env['resa_table.reservation'].search([
+            ('access_token', '=', access_token)
+        ], limit=1)
+        # TO DO unknown reservation treatment
+
+        # TO DO status treatment
+        
+        return http.request.render(
+            'resa_table.edit_reservation_page',
+            {
+                'reservation': reservation
             }
         )
 

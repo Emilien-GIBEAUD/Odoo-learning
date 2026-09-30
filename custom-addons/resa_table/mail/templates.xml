@@ -1,0 +1,65 @@
+<odoo>
+<!-- Asking confirmation -->
+<record id="email_asking_confirmation" model="mail.template">
+    <field name="name">Demande de confirmation de réservation</field>
+    <field name="model_id" ref="model_resa_table_reservation"/>
+    <field name="subject">Réservation du {{ object.slot_id.service_id.name }} (attente confirmation)</field>
+    <field name="email_to">{{ object.email }}</field>
+    <field name="email_from">contact@petitmaraichin.fr</field>
+    <field name="email_cc">contact@petitmaraichin.fr</field>
+    <field name="body_html" type="html">
+        <div class="center">
+            <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
+            <h1>Réservation en attente de confirmation</h1>
+        </div>
+        <p>Bonjour <t t-out="object.first_name"/>,</p>
+        <p>Merci de confirmer votre réservation en cliquant sur le bouton suivant :</p>
+        <div class="center">
+            <a class="btn-primary" t-att-href="object.get_base_url() + '/resatable/reservation/visitor/' + object.access_token">Confirmer ma réservation</a>
+        </div>
+        <br/>
+        <br/>
+        <h2>Rappel de votre réservation</h2>
+        <h3>Vos coordonnées</h3>
+            <p>Prénom : <t t-out="object.first_name"/></p>
+            <p>Nom : <t t-out="object.name"/></p>
+            <p>Email : <t t-out="object.email"/></p>
+            <p>Téléphone : <t t-out="object.phone"/></p>
+        <br/>
+        <h3>Votre date de réservation</h3>
+            <p>Date du service : {{reservation.slot.service.serviceDate|format_datetime(pattern: 'EEEE d MMMM',locale: 'fr') }}</p>
+            <p>Horaire : {{ reservation.slot.startTime|date('H:i') }}</p>
+        <br/>
+        <h3>Votre réservation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pizza</th>
+                        <th>|Qtt</th>
+                        <th>|Prix unit.</th>
+                        <th>|Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set cartTotal = 0 %}
+                    {% for item in reservation.reservationItems %}
+                        <tr>
+                            <td>{{ item.pizzaName }}</td>
+                            <td>|{{ item.quantity }}</td>
+                            <td>|{{ item.unitPrice }}</td>
+                            <td>|{{ (item.quantity * item.unitPrice)|number_format(2) }}</td>
+                            {% set cartTotal = cartTotal + item.quantity * item.unitPrice %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div>
+                <strong>Total : <span id="cartTotal">{{ cartTotal|number_format(2) }}</span> €</strong>
+            </div>
+        <br/>
+
+    </field>
+</record>
+
+</odoo>
+
