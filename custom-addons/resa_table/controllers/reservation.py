@@ -75,27 +75,16 @@ class ReservationController(http.Controller):
                 "Le numéro de téléphone doit comporter 10 chiffres et commencer par 06 ou 07."
             )
 
-    # Add reservation
-        status = "PENDING"
-        acces_token = secrets.token_hex(32)
-        now = fields.Datetime.now()
-        confirmation_expires_at = now + timedelta(minutes=30)
-
-    # Add items to reservation
-        # TO DO
-
     # Last check of the capacity before flushing the reservation and items to the database
-        requested_quantity = sum(items.values())
-        if requested_quantity > slot.available_capacity:
-            errors.append(
-                "La capacité du créneau n'est plus disponible. Une réservation sur ce créneau vient d'être effectuée. Veuillez choisir un autre créneau."
-            )
+        if not errors:
+            requested_quantity = sum(items.values())
+            if requested_quantity > slot.available_capacity:
+                errors.append(
+                    "La capacité du créneau n'est plus disponible. Une réservation sur ce créneau vient d'être effectuée. Veuillez choisir un autre créneau."
+                )
 
+        # If any errors, send back errors and former data an items
         if errors:
-            # return str({
-            #     'form_data': form_data,
-            #     'former_items': former_items,
-            # })
             return request.render(
                 'resa_table.pizzas_page',
                 {
@@ -107,27 +96,33 @@ class ReservationController(http.Controller):
                 }
             )
 
+    # Add reservation (if there are no errors)
+        reservation = request.env['resa_table.reservation'].sudo().create({
+            'name': last_name,
+            'first_name': first_name,
+            'email': email,
+            'phone': phone,
+            'status': 'PENDING',
+            'access_token': secrets.token_hex(32),
+            'slot_id': slot.id,
+            'confirmation_expires_at': (
+                fields.Datetime.now() + timedelta(minutes=30)
+            ),
+        })
+        # Add items to reservation
+        for pizza_id, quantity in items.items():
+            pizza = request.env['resa_table.pizza'].browse(pizza_id)
+            request.env['resa_table.reservation_item'].sudo().create({
+                'name': pizza.name,
+                'unit_price': pizza.price,
+                'quantity': quantity,
+                'reservation_id': reservation.id,
+            })
+
     # Send the askConfirmation email then redirect the visitor to the confirmation page
         # TO DO : send the asking confirmation email
         return request.redirect('/resatable/reservation/pending')
 
-        return str({
-            'service': service.display_service,
-            'slot': slot.display_slot,
-            'pizzas': {
-                pizza_id: {
-                    'name': pizza.name,
-                    'quantity': items[pizza_id],
-                    'price': pizza.price,
-                }
-                for pizza_id, pizza in selected_pizzas.items()
-            },
-            'status': status,
-            'token': acces_token,
-            'expiration': confirmation_expires_at,
-            'total qtt': requested_quantity,
-            'capacité dispo': slot.available_capacity
-        })
 
     @http.route('/resatable/reservation/pending', type='http', auth='public', website=True, methods=['GET','POST'],)
     def ReservationPending(self):
