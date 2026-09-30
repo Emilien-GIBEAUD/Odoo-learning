@@ -73,19 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
 
             row.innerHTML = `
-                <input type="hidden" name="item[${pizzaId}]" value="${quantity}">
+                <input type="hidden" name="item_id_${pizzaId}" value="${quantity}">
                 <td>${name}</td>
                 <td class="quantity">${quantity}</td>
                 <td class="price">${price.toFixed(2)} €</td>
                 <td class="total">${totalToAdd.toFixed(2)} €</td>
-                <td class="d-flex align-items-center gap-1">
-                    <button type="button" class="btn p-0 border-0 bg-transparent btnDecrease">
-                        <i class="bi bi-dash-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
-                    </button>
-                    <button type="button" class="btn p-0 border-0 bg-transparent btnIncrease">
-                        <i class="bi bi-plus-circle" width="32" height="32" role="img" aria-label="Bootstrap"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm btnRemove">Supprimer</button>
+                <td>
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn p-0 border-0 bg-transparent btnDecrease">
+                            <i class="fa fa-minus-square-o cart-icon" role="img" aria-label="Bootstrap"></i>
+                        </button>
+                        <button type="button" class="btn p-0 border-0 bg-transparent btnIncrease">
+                            <i class="fa fa-plus-square-o cart-icon" role="img" aria-label="Bootstrap"></i>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm btnRemove">Supprimer</button>
+                    </div>
                 </td>
             `;
 
