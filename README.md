@@ -30,6 +30,7 @@ L'architecture de développement est basée sur [https://ecosire.com/blog/how-to
 
 * Adaptation à **Odoo 19**.
 * Ajout d'un conteneur **pgAdmin** pour faciliter l'administration et la visualisation de la base de données PostgreSQL.
+* Ajout d'un conteneur **Mailpit** pour intercepter les email en développement.
 
 <br>
 
