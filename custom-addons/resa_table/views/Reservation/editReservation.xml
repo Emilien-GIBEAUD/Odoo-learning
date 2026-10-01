@@ -83,7 +83,6 @@
                         <td t-out="item.quantity"/>
                         <td t-out="'%.2f €' % item.unit_price"/>
                         <td t-out="'%.2f €' % (item.quantity * item.unit_price)"/>
-                        <!-- <td>{{ (item.quantity * item.unitPrice)|number_format(2) }}</td> -->
                         <t t-set="cart_total" t-value="cart_total + item.quantity * item.unit_price"/>
                     </tr>
                 </t>

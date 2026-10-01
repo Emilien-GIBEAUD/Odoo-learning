@@ -8,15 +8,33 @@
     <field name="email_from">contact@petitmaraichin.fr</field>
     <field name="email_cc">contact@petitmaraichin.fr</field>
     <field name="body_html" type="html">
-        <div class="center">
+        <div style="text-align: center;">
             <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
             <h1>Réservation en attente de confirmation</h1>
         </div>
         <p>Bonjour <t t-out="object.first_name"/>,</p>
         <p>Merci de confirmer votre réservation en cliquant sur le bouton suivant :</p>
-        <div class="center">
-            <a class="btn-primary" t-att-href="object.get_base_url() + '/resatable/reservation/visitor/' + object.access_token">Confirmer ma réservation</a>
+        <div style="text-align: center;">
+            <a  t-att-href="object.get_base_url() + '/resatable/reservation/visitor/' + object.access_token"
+                style=" display: inline-block;
+                        padding: 0.375rem 0.75rem;
+                        font-family: inherit;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: center;
+                        text-decoration: none;
+                        vertical-align: middle;
+                        border: 1px solid transparent;
+                        border-radius: 0.375rem;
+                        cursor: pointer;
+                        color: #fff;
+                        background-color: #0d6efd;
+                        border-color: #0d6efd;">
+                Confirmer/Voir ma réservation</a>
         </div>
+        <p style="font-weight: bold;">⚠️ Ce lien de confirmation n'est valide que 30 mins. Votre réservation sera annulée en l'absence de confirmation dans ce délai. ⚠️</p>
+        <p>🚀 Une fois votre réservation confirmée, ce bouton vous permettra également d'accéder à l'avenir à votre réservation. 🚀</p>
         <br/>
         <br/>
         <h2>Rappel de votre réservation</h2>
@@ -27,34 +45,34 @@
             <p>Téléphone : <t t-out="object.phone"/></p>
         <br/>
         <h3>Votre date de réservation</h3>
-            <p>Date du service : {{reservation.slot.service.serviceDate|format_datetime(pattern: 'EEEE d MMMM',locale: 'fr') }}</p>
-            <p>Horaire : {{ reservation.slot.startTime|date('H:i') }}</p>
+            <p>Date du service : <t t-out="object.slot_id.service_id.display_reservation_date"/></p>
+            <p>Horaire : <t t-out="object.slot_id.display_reservation_time"/></p>
         <br/>
         <h3>Votre réservation</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Pizza</th>
-                        <th>|Qtt</th>
-                        <th>|Prix unit.</th>
-                        <th>|Total</th>
+                        <th style="text-align: left;"> Pizza </th>
+                        <th style="text-align: left;">| Qtt </th>
+                        <th style="text-align: left;">| Prix unit. </th>
+                        <th style="text-align: left;">| Total </th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% set cartTotal = 0 %}
-                    {% for item in reservation.reservationItems %}
-                        <tr>
-                            <td>{{ item.pizzaName }}</td>
-                            <td>|{{ item.quantity }}</td>
-                            <td>|{{ item.unitPrice }}</td>
-                            <td>|{{ (item.quantity * item.unitPrice)|number_format(2) }}</td>
-                            {% set cartTotal = cartTotal + item.quantity * item.unitPrice %}
+                    <t t-set="cart_total" t-value="0"/>
+                    <t t-foreach="object.reservation_item_ids" t-as="item">
+                        <tr class="align-middle">
+                            <td style="text-align: left;" t-out="item.name"/>
+                            <td style="text-align: left;" t-out="'| ' + str(item.quantity)"/>
+                            <td style="text-align: left;" t-out="'| %.2f €' % item.unit_price"/>
+                            <td style="text-align: left;" t-out="'| %.2f €' % (item.quantity * item.unit_price)"/>
+                            <t t-set="cart_total" t-value="cart_total + item.quantity * item.unit_price"/>
                         </tr>
-                    {% endfor %}
+                    </t>
                 </tbody>
             </table>
-            <div>
-                <strong>Total : <span id="cartTotal">{{ cartTotal|number_format(2) }}</span> €</strong>
+            <div class="mt-1 mb-5 text-end">
+                <strong>Total : <span t-out="'%.2f €' % cart_total"/></strong>
             </div>
         <br/>
     </field>
