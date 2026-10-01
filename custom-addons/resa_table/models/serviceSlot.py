@@ -10,6 +10,11 @@ class ServiceSlot(models.Model):
         compute='_compute_display_slot', 
         store=False
     )
+    display_reservation_time = fields.Char(
+        string='Horaire', 
+        compute='_compute_display_reservation_time', 
+        store=False
+    )
     duration = fields.Integer(string='Durée', compute='_compute_duration',store=False)
     reservation = fields.Integer(string='Réservations', compute='_compute_reservation',store=False)
     capacity = fields.Integer(string='Capacité', required=True)
@@ -37,7 +42,7 @@ class ServiceSlot(models.Model):
         for slot in self:
             slot.available_capacity = slot.capacity - slot.reservation
 
-# To compute the display_service
+# To compute the display_slot
     @api.depends('name', 'duration', 'reservation', 'capacity')
     def _compute_display_slot(self):
         for slot in self:
@@ -54,6 +59,16 @@ class ServiceSlot(models.Model):
                 f"{end_hour:02d}:{end_minute:02d} ("
                 f"{available_capacity}"
                 f"{' pizzas disponibles' if available_capacity > 1 else ' pizza disponible'})"
+            )
+
+# To compute the display_reservation_time
+    @api.depends('name')
+    def _compute_display_reservation_time(self):
+        for slot in self:
+            minutes = round(slot.name * 60)
+            hour, minute = divmod(minutes, 60)
+            slot.display_reservation_time = (
+                f"{hour:02d}:{minute:02d}"
             )
 
 # To display display_slot instead of default name in "action_pizza_service_items"

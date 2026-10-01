@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from babel.dates import format_date
 
 class Service(models.Model):
     _name = 'resa_table.service'
@@ -8,6 +9,11 @@ class Service(models.Model):
     display_service = fields.Char(
         string='Service', 
         compute='_compute_display_service', 
+        store=False
+    )
+    display_reservation_date = fields.Char(
+        string='Service', 
+        compute='_compute_display_reservation_date', 
         store=False
     )
     template_id = fields.Many2one(
@@ -70,6 +76,17 @@ class Service(models.Model):
                 f"{service.name.strftime('%B')} "
                 f"({int(service.startTime):02d}:{round((service.startTime % 1) * 60):02d} - "
                 f"{int(service.endTime):02d}:{round((service.endTime % 1) * 60):02d})"
+            )
+
+
+# To compute the display_reservation_date
+    @api.depends('name')
+    def _compute_display_reservation_date(self):
+        for service in self:
+            service.display_reservation_date = format_date(
+                service.name,
+                format='EEEE d MMMM',
+                locale='fr_FR',
             )
 
 

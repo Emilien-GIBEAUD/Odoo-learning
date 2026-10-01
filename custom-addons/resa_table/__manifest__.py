@@ -25,6 +25,7 @@
         'views/Pizza/pizzas.xml',
         'views/Reservation/pendingReservation.xml',
         'views/Reservation/editReservation.xml',
+        'views/Reservation/unknownReservation.xml',
         'views/base.xml',
         'views/conditions.xml',
         'views/home.xml',

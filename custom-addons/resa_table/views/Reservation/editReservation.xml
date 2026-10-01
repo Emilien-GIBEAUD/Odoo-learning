@@ -8,52 +8,60 @@
 <div class="container">
     <h1>
         Votre réservation
-        <!-- {{ reservation.status == 'PENDING' ? 
-            '<span class="badge bg-warning ms-2 p-2 fs-5">ATTENTE CONFIRMATION</span>' : 
-            reservation.status == 'OUTDATED' 
-                or reservation.status == 'CONFIRMED' 
-                and reservation.slot.service.serviceDate|date('Y-m-d') < date()|date('Y-m-d') ? 
-            '<span class="badge bg-secondary ms-2 p-2 fs-5">RÉSERVATION PASSÉE</span>' : 
-            reservation.status == 'EXPIRED' 
-                or reservation.status == 'PENDING' 
-                and reservation.confirmationExpiresAt > date() ? 
-            '<span class="badge bg-danger ms-2 p-2 fs-5">RÉSERVATION EXPIRÉE</span>' : 
-            reservation.status == 'CANCELLED' ? 
-            '<span class="badge bg-danger ms-2 p-2 fs-5">RÉSERVATION ANNULÉE</span>' : 
-            '<span class="badge bg-success ms-2 p-2 fs-5">RÉSERVATION CONFIRMÉE</span>' }}  -->
+        <t t-if="reservation.status == 'CONFIRMED'">
+            <span class="badge bg-success ms-2 p-2 fs-5">RÉSERVATION CONFIRMÉE</span>
+        </t>
+        <t t-if="reservation.status == 'EXPIRED'">
+            <span class="badge bg-danger ms-2 p-2 fs-5">RÉSERVATION EXPIRÉE</span>
+        </t>
+        <t t-if="reservation.status == 'CANCELLED'">
+            <span class="badge bg-danger ms-2 p-2 fs-5">RÉSERVATION ANNULÉE</span>
+        </t>
+        <t t-if="reservation.status == 'OUTDATED'">
+            <span class="badge bg-secondary ms-2 p-2 fs-5">RÉSERVATION PASSÉE</span>
+        </t>
     </h1>
-    {% if confirmedNow is defined %}
+    <t t-if="confirmed_now">
         <p class="alert alert-success">Votre réservation est maintenant confirmée !</p>
-    {% endif %}
+    </t>
+    <t t-if="reservation.status == 'EXPIRED'">
+        <p class="alert alert-danger">Votre réservation n'a pas été confirmée à temps, elle n'est donc pas prise en compte. <br/>Veuillez faire une nouvelle réservation ou bien contactez nous.</p>
+    </t>
+    <t t-if="reservation.status == 'CANCELLED'">
+        <p class="alert alert-danger">Cette réservation a été annulée.</p>
+    </t>
+    <t t-if="reservation.status == 'OUTDATED'">
+        <p class="alert alert-secondary">Cette réservation est passée.<br/> Nous espérons que tout s'est bien passé et sommes impatients de vous revoir !</p>
+    </t>
     <div class="row g-3">
-        <h2 class="mt-4 mb-0">Rappel de votre réservation</h2>
+        <h2 class="mt-5 mb-0">Rappel de votre réservation</h2>
         <h4 class="my-2">Vos coordonnées</h4>
         <div class="mt-0 col-md-3 col-sm-6"> 
             <h6 class="my-0">Prénom</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.first_name"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.first_name"/>
         </div>
         <div class="mt-0 col-md-3 col-sm-6"> 
             <h6 class="my-0">Nom</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.name"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.name"/>
         </div>
         <div class="mt-0 col-md-4 col-sm-7"> 
             <h6 class="my-0">Email</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.email"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.email"/>
         </div>
         <div class="mt-0 col-md-2 col-sm-5"> 
             <h6 class="my-0">Téléphone</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.phone"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.phone"/> 
         </div>
 
         <hr class="mt-4 mb-1"/>
         <h4 class="mt-0">Votre date de réservation</h4>
         <div class="mt-0 col-md-5 col-sm-6"> 
             <h6 class="my-0">Service</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.slot_id.service_id.name"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.slot_id.service_id.display_reservation_date"/> 
         </div>
         <div class="mt-0 col-md-5 col-sm-6"> 
             <h6 class="my-0">Horaire</h6> 
-            <p class="mb-0 text-body-secondary"><t t-out="reservation.slot_id.name"/></p> 
+            <p class="mb-0 text-body-secondary" t-out="reservation.slot_id.display_reservation_time"/> 
         </div>
 
         <hr class="mt-4 mb-1"/>
@@ -68,20 +76,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% set cartTotal = 0 %}
-                {% for item in reservation.reservationItems %}
+                <t t-set="cart_total" t-value="0"/>
+                <t t-foreach="reservation.reservation_item_ids" t-as="item">
                     <tr class="align-middle">
-                        <td>{{ item.pizzaName }}</td>
-                        <td>{{ item.quantity }}</td>
-                        <td>{{ item.unitPrice }}</td>
-                        <td>{{ (item.quantity * item.unitPrice)|number_format(2) }}</td>
-                        {% set cartTotal = cartTotal + item.quantity * item.unitPrice %}
+                        <td t-out="item.name"/>
+                        <td t-out="item.quantity"/>
+                        <td t-out="'%.2f €' % item.unit_price"/>
+                        <td t-out="'%.2f €' % (item.quantity * item.unit_price)"/>
+                        <!-- <td>{{ (item.quantity * item.unitPrice)|number_format(2) }}</td> -->
+                        <t t-set="cart_total" t-value="cart_total + item.quantity * item.unit_price"/>
                     </tr>
-                {% endfor %}
+                </t>
             </tbody>
         </table>
         <div class="mt-1 mb-5 text-end">
-            <strong>Total : <span id="cartTotal">{{ cartTotal|number_format(2) }}</span> €</strong>
+            <strong>Total : <span t-out="'%.2f €' % cart_total"/></strong>
         </div>
     </div>
 </div>

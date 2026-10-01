@@ -1,0 +1,16 @@
+<odoo>
+
+<template id="unknown_reservation_page" name="Réservation inconnue">
+<t t-call="resa_table.base_template">
+<t t-set="page_title">Réservation inconnue</t>
+<div class="d-flex flex-column min-vh-100">
+<main class="flex-grow-1 d-flex align-items-center col-11 col-xl-8 mx-auto">
+    <div class="container">
+        <h1 class="text-center">Cettte réservation est inconnue.</h1>
+    </div>
+</main>
+</div>
+</t>
+</template>
+
+</odoo>

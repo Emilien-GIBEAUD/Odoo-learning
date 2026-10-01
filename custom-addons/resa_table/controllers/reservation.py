@@ -120,7 +120,6 @@ class ReservationController(http.Controller):
             })
 
     # Send the askConfirmation email then redirect the visitor to the confirmation page
-        # ON GOING : send the asking confirmation email
         template = request.env.ref(
             'resa_table.email_asking_confirmation'
         )
@@ -134,7 +133,7 @@ class ReservationController(http.Controller):
 
     @http.route('/resatable/reservation/pending', type='http', auth='public', website=True, methods=['GET'],)
     def ReservationPending(self):
-        # TO DO send reservation
+        # TO DO send reservation to display in page
 
         return http.request.render(
             'resa_table.pending_reservation_page',
@@ -144,18 +143,40 @@ class ReservationController(http.Controller):
 
 
     @http.route('/resatable/reservation/visitor/<string:access_token>', type='http', auth='public', website=True, methods=['GET'],)
-    def ReservationPending(self, access_token):
+    def EditReservation(self, access_token):
         reservation = request.env['resa_table.reservation'].search([
             ('access_token', '=', access_token)
         ], limit=1)
-        # TO DO unknown reservation treatment
 
-        # TO DO status treatment
+        # Unknown reservation treatment
+        if not reservation:
+            return http.request.render('resa_table.unknown_reservation_page')
+
+        # Status treatment
+        now = fields.Datetime.now()
+        date_now = fields.Date.today()
+        if reservation.status == 'PENDING':
+            if now < reservation.confirmation_expires_at:
+                reservation.status = 'CONFIRMED'
+                return http.request.render(
+                    'resa_table.edit_reservation_page',
+                    {
+                        'reservation': reservation,
+                        'confirmed_now': True
+                    }
+                )
+            else:
+                reservation.status = 'EXPIRED'
         
+        outdated = reservation.slot_id.service_id.name
+        if reservation.status == 'CONFIRMED' and date_now > outdated:
+            reservation.status = 'OUTDATED'
+
         return http.request.render(
             'resa_table.edit_reservation_page',
             {
-                'reservation': reservation
+                'reservation': reservation,
+                'confirmed_now': False
             }
         )
 

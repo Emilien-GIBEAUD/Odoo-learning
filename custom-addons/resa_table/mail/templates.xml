@@ -1,4 +1,4 @@
-<odoo>
+<odoo> <!-- Email templates -->
 <!-- Asking confirmation -->
 <record id="email_asking_confirmation" model="mail.template">
     <field name="name">Demande de confirmation de réservation</field>
@@ -57,9 +57,9 @@
                 <strong>Total : <span id="cartTotal">{{ cartTotal|number_format(2) }}</span> €</strong>
             </div>
         <br/>
-
     </field>
 </record>
 
+<!-- XXX -->
 </odoo>
 
