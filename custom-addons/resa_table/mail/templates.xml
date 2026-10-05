@@ -3,10 +3,10 @@
 <record id="email_asking_confirmation" model="mail.template">
     <field name="name">Demande de confirmation de réservation</field>
     <field name="model_id" ref="model_resa_table_reservation"/>
+    <field name="use_default_to" eval="False"/>
     <field name="subject">Réservation du {{ object.slot_id.service_id.name }} (attente confirmation)</field>
     <field name="email_to">{{ object.email }}</field>
     <field name="email_from">contact@petitmaraichin.fr</field>
-    <field name="email_cc">contact@petitmaraichin.fr</field>
     <field name="body_html" type="html">
         <div style="text-align: center;">
             <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
@@ -31,10 +31,9 @@
                         color: #fff;
                         background-color: #0d6efd;
                         border-color: #0d6efd;">
-                Confirmer/Voir ma réservation</a>
+                Confirmer ma réservation</a>
         </div>
         <p style="font-weight: bold;">⚠️ Ce lien de confirmation n'est valide que 30 mins. Votre réservation sera annulée en l'absence de confirmation dans ce délai. ⚠️</p>
-        <p>🚀 Une fois votre réservation confirmée, ce bouton vous permettra également d'accéder à l'avenir à votre réservation. 🚀</p>
         <br/>
         <br/>
         <h2>Rappel de votre réservation</h2>
@@ -78,6 +77,85 @@
     </field>
 </record>
 
-<!-- XXX -->
+<!-- Sending confirmation -->
+<record id="email_send_confirmation" model="mail.template">
+    <field name="name">Confirmation de réservation</field>
+    <field name="model_id" ref="model_resa_table_reservation"/>
+    <field name="use_default_to" eval="False"/>
+    <field name="subject">Réservation du {{ object.slot_id.service_id.name }} (confirmée)</field>
+    <field name="email_to">{{ object.email }},contact@petitmaraichin.fr</field>
+    <field name="email_from">contact@petitmaraichin.fr</field>
+    <field name="body_html" type="html">
+        <div style="text-align: center;">
+            <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
+            <h1>Réservation confirmée !</h1>
+        </div>
+        <p>Bonjour <t t-out="object.first_name"/>,</p>
+        <p>Votre réservation est confirmée, vous pouvez la consulter en cliquant sur le bouton suivant :</p>
+        <div style="text-align: center;">
+            <a  t-att-href="object.get_base_url() + '/resatable/reservation/visitor/' + object.access_token"
+                style=" display: inline-block;
+                        padding: 0.375rem 0.75rem;
+                        font-family: inherit;
+                        font-size: 1rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: center;
+                        text-decoration: none;
+                        vertical-align: middle;
+                        border: 1px solid transparent;
+                        border-radius: 0.375rem;
+                        cursor: pointer;
+                        color: #fff;
+                        background-color: #0d6efd;
+                        border-color: #0d6efd;">
+                Consulter ma réservation</a>
+        </div>
+        <p>🚀 Ce lien vous permet également de modifier ou supprimer votre réservation (jusqu'à la veille de votre réservation).<br/>
+        Si vous souhaitez modifier ou supprimer votre réservation le jour de cette dernière, veuillez nous contacter par téléphone.<br/>
+        Une fois votre réservation passée, vous pourrez toujours la consulter, vos données personnelles auront cependant été supprimées (email, téléphone). 🚀</p>
+        <br/>
+        <br/>
+        <h2>Rappel de votre réservation</h2>
+        <h3>Vos coordonnées</h3>
+            <p>Prénom : <t t-out="object.first_name"/></p>
+            <p>Nom : <t t-out="object.name"/></p>
+            <p>Email : <t t-out="object.email"/></p>
+            <p>Téléphone : <t t-out="object.phone"/></p>
+        <br/>
+        <h3>Votre date de réservation</h3>
+            <p>Date du service : <t t-out="object.slot_id.service_id.display_reservation_date"/></p>
+            <p>Horaire : <t t-out="object.slot_id.display_reservation_time"/></p>
+        <br/>
+        <h3>Votre réservation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align: left;"> Pizza </th>
+                        <th style="text-align: left;">| Qtt </th>
+                        <th style="text-align: left;">| Prix unit. </th>
+                        <th style="text-align: left;">| Total </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <t t-set="cart_total" t-value="0"/>
+                    <t t-foreach="object.reservation_item_ids" t-as="item">
+                        <tr class="align-middle">
+                            <td style="text-align: left;" t-out="item.name"/>
+                            <td style="text-align: left;" t-out="'| ' + str(item.quantity)"/>
+                            <td style="text-align: left;" t-out="'| %.2f €' % item.unit_price"/>
+                            <td style="text-align: left;" t-out="'| %.2f €' % (item.quantity * item.unit_price)"/>
+                            <t t-set="cart_total" t-value="cart_total + item.quantity * item.unit_price"/>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <div class="mt-1 mb-5 text-end">
+                <strong>Total : <span t-out="'%.2f €' % cart_total"/></strong>
+            </div>
+        <br/>
+    </field>
+</record>
+
 </odoo>
 
