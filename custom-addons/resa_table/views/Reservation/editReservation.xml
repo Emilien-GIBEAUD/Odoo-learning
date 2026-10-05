@@ -24,6 +24,21 @@
     <t t-if="confirmed_now">
         <p class="alert alert-success">Votre réservation est maintenant confirmée !</p>
     </t>
+    <t t-if="reservation.status == 'CONFIRMED'">
+        <h3 class="mt-4">Actions diponibles pour votre réservation</h3>
+        <t t-if="reservation.slot_id.service_id.name == datetime.date.today()">
+            <p class="mt-4 mb-0">Votre réservartion est prévue pour aujourd'hui. La modification/annulation en ligne n'est plus disponible.</p>
+            <p class="fst-italic">Une modification/annulation de dernière minute est cependant toujours possible, veuillez nous contacter par téléphone afin de faciliter son traitement.</p>
+        </t>
+        <t t-else="">
+            <p class="fst-italic text-center">... en développement ...</p>
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <button type="submit" id="modifyBooking" class="btn btn-warning">...Modifier votre réservation...</button>
+                <button type="submit" id="cancelBooking" class="btn btn-danger">...Annuler votre réservation...</button>
+            </div>
+            <p class="fst-italic text-center mt-4">... en développement ...</p>
+        </t>
+    </t>
     <t t-if="reservation.status == 'EXPIRED'">
         <p class="alert alert-danger">Votre réservation n'a pas été confirmée à temps, elle n'est donc pas prise en compte. <br/>Veuillez faire une nouvelle réservation ou bien contactez nous.</p>
     </t>

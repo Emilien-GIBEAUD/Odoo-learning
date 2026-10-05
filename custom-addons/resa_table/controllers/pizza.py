@@ -1,4 +1,5 @@
-from odoo import http
+from odoo import http, fields
+from datetime import timedelta
 
 
 class PizzaController(http.Controller):
@@ -9,7 +10,8 @@ class PizzaController(http.Controller):
             ('isActive', '=', True)
         ])
         services = http.request.env['resa_table.service'].search([
-            ('bookingOpen', '=', True)
+            ('bookingOpen', '=', True),
+            ('name', '>=', fields.Date.today() + timedelta(days=2)),
         ])
         return http.request.render(
             'resa_table.pizzas_page',

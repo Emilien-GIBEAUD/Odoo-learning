@@ -11,8 +11,9 @@ class ReservationController(http.Controller):
         pizzas = request.env['resa_table.pizza'].search([
             ('isActive', '=', True)
         ])
-        services = request.env['resa_table.service'].search([
-            ('bookingOpen', '=', True)
+        services = http.request.env['resa_table.service'].search([
+            ('bookingOpen', '=', True),
+            ('name', '>=', fields.Date.today() + timedelta(days=2)),
         ])
         form_data = post
 
