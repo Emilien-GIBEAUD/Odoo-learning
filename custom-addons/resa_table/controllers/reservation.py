@@ -2,6 +2,7 @@ from odoo import http, fields
 from odoo.http import request
 from datetime import timedelta
 import secrets, re
+from werkzeug.urls import url_encode
 
 class ReservationController(http.Controller):
 
@@ -128,17 +129,21 @@ class ReservationController(http.Controller):
             force_send=True,
         )
 
-        return request.redirect('/resatable/reservation/pending')
+        return request.redirect(
+            '/resatable/reservation/pending?' + url_encode(
+            {'access_token': reservation.access_token})
+        )
 
 
     @http.route('/resatable/reservation/pending', type='http', auth='public', website=True, methods=['GET'],)
-    def ReservationPending(self):
-        # TO DO send reservation to display in page
+    def ReservationPending(self, access_token):
+        reservation = request.env['resa_table.reservation'].search([
+            ('access_token', '=', access_token)
+        ], limit=1)
 
         return http.request.render(
             'resa_table.pending_reservation_page',
-            {
-            }
+            {'reservation': reservation}
         )
 
 
@@ -158,6 +163,14 @@ class ReservationController(http.Controller):
         if reservation.status == 'PENDING':
             if now < reservation.confirmation_expires_at:
                 reservation.status = 'CONFIRMED'
+                # Send confirmation email
+                template = request.env.ref(
+                    'resa_table.email_send_confirmation'
+                )
+                template.sudo().send_mail(
+                    reservation.id,
+                    force_send=True,
+                )
                 return http.request.render(
                     'resa_table.edit_reservation_page',
                     {

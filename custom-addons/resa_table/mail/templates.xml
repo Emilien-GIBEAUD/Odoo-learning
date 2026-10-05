@@ -7,6 +7,7 @@
     <field name="subject">Réservation du {{ object.slot_id.service_id.name }} (attente confirmation)</field>
     <field name="email_to">{{ object.email }}</field>
     <field name="email_from">contact@petitmaraichin.fr</field>
+    <field name="email_cc" eval="False"/><!-- probablement inutile si "email_cc" pas en base -->
     <field name="body_html" type="html">
         <div style="text-align: center;">
             <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
@@ -33,7 +34,8 @@
                         border-color: #0d6efd;">
                 Confirmer ma réservation</a>
         </div>
-        <p style="font-weight: bold;">⚠️ Ce lien de confirmation n'est valide que 30 mins. Votre réservation sera annulée en l'absence de confirmation dans ce délai. ⚠️</p>
+        <p style="font-weight: bold;">⚠️ Ce lien de confirmation n'est valide que 30 mins.<br/>
+        Votre réservation sera annulée en l'absence de confirmation dans ce délai.&#160;⚠️</p>
         <br/>
         <br/>
         <h2>Rappel de votre réservation</h2>
@@ -85,6 +87,7 @@
     <field name="subject">Réservation du {{ object.slot_id.service_id.name }} (confirmée)</field>
     <field name="email_to">{{ object.email }},contact@petitmaraichin.fr</field>
     <field name="email_from">contact@petitmaraichin.fr</field>
+    <field name="email_cc" eval="False"/><!-- probablement inutile si "email_cc" pas en base -->
     <field name="body_html" type="html">
         <div style="text-align: center;">
             <!-- <img src="cid:logo.png" alt="Logo du restaurant"/> -->
@@ -111,9 +114,11 @@
                         border-color: #0d6efd;">
                 Consulter ma réservation</a>
         </div>
-        <p>🚀 Ce lien vous permet également de modifier ou supprimer votre réservation (jusqu'à la veille de votre réservation).<br/>
+        <p>🚀<br/>
+        Ce lien vous permet également de modifier ou supprimer votre réservation (jusqu'à la veille de votre réservation).<br/>
         Si vous souhaitez modifier ou supprimer votre réservation le jour de cette dernière, veuillez nous contacter par téléphone.<br/>
-        Une fois votre réservation passée, vous pourrez toujours la consulter, vos données personnelles auront cependant été supprimées (email, téléphone). 🚀</p>
+        Une fois votre réservation passée, vous pourrez toujours la consulter, vos données personnelles auront cependant été supprimées (email, téléphone).<br/>
+        🚀</p>
         <br/>
         <br/>
         <h2>Rappel de votre réservation</h2>
