@@ -27,3 +27,23 @@ class Reservation(models.Model):
                 f"{record.email} - "
                 f"{record.phone}"
             )
+
+
+    def _cron_expire_reservations(self):
+        reservations = self.search([
+            ('status', '=', 'PENDING'),
+            ('confirmation_expires_at', '<', fields.Datetime.now()),
+        ])
+        reservations.write({
+            'status': 'EXPIRED',
+        })
+
+
+    def _cron_outdate_reservations(self):
+        reservations = self.search([
+            ('status', '=', 'CONFIRMED'),
+            ('slot_id.service_id.name', '<', fields.Date.today()),
+        ])
+        reservations.write({
+            'status': 'OUTDATED',
+        })

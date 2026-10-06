@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_expire_reservations" model="ir.cron">
+        <field name="name">ResaTable : expiration des réservations</field>
+        <field name="model_id" ref="model_resa_table_reservation"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_expire_reservations()</field>
+        <field name="interval_number">10</field>
+        <field name="interval_type">minutes</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="ir_cron_outdate_reservations" model="ir.cron">
+        <field name="name">ResaTable : obsolescence des réservations</field>
+        <field name="model_id" ref="model_resa_table_reservation"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_outdate_reservations()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall">2026-10-07 02:00:00</field>
+        <field name="active" eval="True"/>
+    </record>
+
+</odoo>
