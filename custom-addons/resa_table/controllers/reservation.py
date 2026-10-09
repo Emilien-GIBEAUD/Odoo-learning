@@ -149,7 +149,7 @@ class ReservationController(http.Controller):
 
 
     @http.route('/resatable/reservation/visitor/<string:access_token>', type='http', auth='public', website=True, methods=['GET'],)
-    def EditReservation(self, access_token):
+    def ReservationPage(self, access_token):
         reservation = request.env['resa_table.reservation'].search([
             ('access_token', '=', access_token)
         ], limit=1)
@@ -194,3 +194,20 @@ class ReservationController(http.Controller):
             }
         )
 
+    @http.route('/resatable/reservation/visitor/<string:access_token>/cancel', type='http', auth='public', website=True, methods=['GET', 'POST'],)
+    def DeleteReservation(self, access_token, **post):
+        reservation = request.env['resa_table.reservation'].search([
+            ('access_token', '=', access_token)
+        ], limit=1)
+
+        # Unknown reservation treatment
+        if not reservation:
+            return http.request.render('resa_table.unknown_reservation_page')
+
+        reservation.status = 'CANCELLED'
+        return request.redirect('/resatable/reservation/visitor/' + access_token)
+
+
+    @http.route('/resatable/reservation/visitor/<string:access_token>', type='http', auth='public', website=True, methods=['POST'],)
+    def UpdateReservation(self, access_token, **post):
+        pass

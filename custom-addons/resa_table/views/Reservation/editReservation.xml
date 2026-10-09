@@ -34,7 +34,7 @@
             <p class="fst-italic text-center">... en développement ...</p>
             <div class="d-flex justify-content-center gap-3 mt-4">
                 <button type="submit" id="modifyBooking" class="btn btn-warning">...Modifier votre réservation...</button>
-                <button type="submit" id="cancelBooking" class="btn btn-danger">...Annuler votre réservation...</button>
+                <a  t-att-href='"/resatable/reservation/visitor/" + reservation.access_token + "/cancel"' id="cancelBooking" class="btn btn-danger">Annuler votre réservation</a>
             </div>
             <p class="fst-italic text-center mt-4">... en développement ...</p>
         </t>
