@@ -31,10 +31,32 @@
             <p class="fst-italic">Une modification/annulation de dernière minute est cependant toujours possible, veuillez nous contacter par téléphone afin de faciliter son traitement.</p>
         </t>
         <t t-else="">
+            <!-- Cancellation Modale -->
+            <div class="modal fade" id="cancelModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-4 shadow">
+                        <div class="modal-header border-bottom-0">
+                            <h1 class="modal-title fs-5">Annuler votre réservation</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body py-0">
+                            <p>Êtes-vous sûr de vouloir annuler votre réservation ?</p>
+                            <p class="fst-italic small">Vous ne recevrez pas de mail de confirmation de votre annulation. L'annulation sera visible sur la page de votre réservation uniquement.</p>
+                        </div>
+                        <div class="modal-footer flex-column w-100 gap-2 pb-3 border-top-0">
+                            <a id="cancelBooking" class="btn btn-lg btn-danger" t-att-href='"/resatable/reservation/visitor/" + reservation.access_token + "/cancel"'>Confirmer l'annulation</a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abandonner l'annulation</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <p class="fst-italic text-center">... en développement ...</p>
             <div class="d-flex justify-content-center gap-3 mt-4">
                 <button type="submit" id="modifyBooking" class="btn btn-warning">...Modifier votre réservation...</button>
-                <a  t-att-href='"/resatable/reservation/visitor/" + reservation.access_token + "/cancel"' id="cancelBooking" class="btn btn-danger">Annuler votre réservation</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">
+                    Annuler votre réservation
+                </button>
             </div>
             <p class="fst-italic text-center mt-4">... en développement ...</p>
         </t>
@@ -43,7 +65,12 @@
         <p class="alert alert-danger">Votre réservation n'a pas été confirmée à temps, elle n'est donc pas prise en compte. <br/>Veuillez faire une nouvelle réservation ou bien contactez nous.</p>
     </t>
     <t t-if="reservation.status == 'CANCELLED'">
-        <p class="alert alert-danger">Cette réservation a été annulée.</p>
+        <t t-if="cancelled_now">
+            <p class="alert alert-danger">Votre annulation vient d'être prise en compte.</p>
+        </t>
+        <t t-else="">
+            <p class="alert alert-danger">Cette réservation a été annulée.</p>
+        </t>
     </t>
     <t t-if="reservation.status == 'OUTDATED'">
         <p class="alert alert-secondary">Cette réservation est passée.<br/> Nous espérons que tout s'est bien passé et sommes impatients de vous revoir !</p>
@@ -107,6 +134,7 @@
             <strong>Total : <span t-out="'%.2f €' % cart_total"/></strong>
         </div>
     </div>
+
 </div>
 </main>
 </div>

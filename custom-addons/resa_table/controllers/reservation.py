@@ -4,6 +4,7 @@ from datetime import timedelta
 import secrets, re
 from werkzeug.urls import url_encode
 
+
 class ReservationController(http.Controller):
 
     @http.route('/resatable/pizzas', type='http', auth='public', website=True, methods=['POST'],)
@@ -186,6 +187,17 @@ class ReservationController(http.Controller):
         if reservation.status == 'CONFIRMED' and date_now > outdated:
             reservation.status = 'OUTDATED'
 
+        # If the reservation has just been cancelled
+        if reservation.status == 'CANCELLED' and request.httprequest.args.get('cancelled_now') == 'True':
+            return http.request.render(
+                'resa_table.edit_reservation_page',
+                {
+                    'reservation': reservation,
+                    'confirmed_now': False,
+                    'cancelled_now': True
+                }
+            )
+
         return http.request.render(
             'resa_table.edit_reservation_page',
             {
@@ -205,7 +217,13 @@ class ReservationController(http.Controller):
             return http.request.render('resa_table.unknown_reservation_page')
 
         reservation.status = 'CANCELLED'
-        return request.redirect('/resatable/reservation/visitor/' + access_token)
+        return request.redirect(
+            '/resatable/reservation/visitor/'
+             + access_token
+             + "?" + url_encode({'cancelled_now': True})
+        )
+
+
 
 
     @http.route('/resatable/reservation/visitor/<string:access_token>', type='http', auth='public', website=True, methods=['POST'],)
